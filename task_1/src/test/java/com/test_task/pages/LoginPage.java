@@ -24,6 +24,7 @@ public class LoginPage extends Page {
 
     waitWhileElementToBeClickable(By.xpath(LoginPageLocators.loginButton));
     loginButton.click();
+    // loginButton.click();
 
   }
 

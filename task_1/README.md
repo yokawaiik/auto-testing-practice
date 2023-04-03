@@ -19,6 +19,5 @@ Stack:
 ### Run single test
     mvn -Dtest=SingleTestClass test
 
-
 ### Run allure server
     allure serve

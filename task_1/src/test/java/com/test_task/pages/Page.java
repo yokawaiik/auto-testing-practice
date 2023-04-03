@@ -2,6 +2,7 @@ package com.test_task.pages;
 
 import java.time.Duration;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -44,14 +45,17 @@ public abstract class Page {
   }
 
   public void waitForAlertDialog() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TestConstants.waitIntervalInMilliseconds));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(TestConstants.waitIntervalInSeconds));
+    wait.pollingEvery(Duration.ofMillis(TestConstants.pollingEvery));
+
     wait.until(ExpectedConditions.alertIsPresent());
   }
 
   public Optional<WebElement> waitWhileElementToBeClickable(By by) {
 
     for (int index = 0; index < TestConstants.waitingAttemptsCount; index++) {
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(TestConstants.waitIntervalInMilliseconds));
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(TestConstants.waitIntervalInSeconds));
+      wait.pollingEvery(Duration.ofMillis(TestConstants.pollingEvery));
       final var element = wait.until(ExpectedConditions.elementToBeClickable(by));
       if (element != null) {
         return Optional.of(element);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import org.apache.hc.core5.util.Asserts;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -36,15 +37,15 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
 
   @BeforeEach
   public void initPageObjects() {
-    loginPage = PageFactory.initElements(driver, LoginPage.class);
-    customersListPage = PageFactory.initElements(driver, CustomersListPage.class);
-    createCustomerPage = PageFactory.initElements(driver, CreateCustomerPage.class);
-    openAccountPage = PageFactory.initElements(driver, OpenAccountPage.class);
+    loginPage = PageFactory.initElements(getDriver(), LoginPage.class);
+    customersListPage = PageFactory.initElements(getDriver(), CustomersListPage.class);
+    createCustomerPage = PageFactory.initElements(getDriver(), CreateCustomerPage.class);
+    openAccountPage = PageFactory.initElements(getDriver(), OpenAccountPage.class);
 
     customers = new ArrayList<>();
 
     // ? info: login manager
-    driver.get(UrlConstants.base);
+    getDriver().get(UrlConstants.base);
 
     loginPage.login();
 
@@ -53,12 +54,12 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @BeforeEach
   public void initBaseTestState() {
     // ? info: remove all customers
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
     customersListPage.deleteAllCustomers();
 
     // ? info: add clients
 
-    driver.get(UrlConstants.createCustomer);
+    getDriver().get(UrlConstants.createCustomer);
 
     for (int index = 0; index < 5; index++) {
       final Person newPerson = Utils.createRandomPerson();
@@ -69,7 +70,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
 
     // ? info: add accounts
 
-    driver.get(UrlConstants.addAccountToClient);
+    getDriver().get(UrlConstants.addAccountToClient);
 
     for (int index = 0; index < customers.size(); index++) {
       final Customer currentCustomer = customers.get(index);
@@ -84,7 +85,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @AfterEach
   public void disposeTestSuiteState() {
     // clear cookies
-    driver.manage().deleteAllCookies();
+    getDriver().manage().deleteAllCookies();
 
   }
 
@@ -94,7 +95,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC012: Searching for a client by field: First Name.")
   @Story("Manager search for a customer by by field: First Name.")
   public void searchForCustomersByFirstName() {
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
 
@@ -124,7 +125,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Story("Manager search for a customer by field: Last Name.")
   public void searchForCustomersByFieldLastName() {
 
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
 
@@ -155,7 +156,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Story("Manager search for a customer by field: Post Code.")
   public void searchForCustomersByFieldPostCode() {
 
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
 
@@ -184,7 +185,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Story("Manager search for a customer by field: Account Number.")
   public void searchForCustomersByFieldAccountNumber() {
 
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
 
@@ -214,7 +215,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Story("Manager tries search for a customer by non-existent data.")
   public void searchForCustomerByNonExistentData() {
 
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final String randomQuery = Utils.getRandomString();
 
@@ -233,7 +234,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Story("Manager tries search for a customer by performing searches with merged data.")
   public void searchForCustomerByMergedSearchTerms() {
 
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
 
@@ -283,7 +284,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC018: Trying to search with an empty search term.")
   @Story("Manager tries search for a customer by an empty search term.")
   public void searchForCustomerByAnEmptySearchTerm() {
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final Optional<List<TableCustomer>> allCustomersInTheTableBeforeQuery = customersListPage
         .getAllCustomersInTheTable();
@@ -310,7 +311,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   public void searchForCustomersWithTheSameData() {
 
     // ? info : step - add an another customer with the same data
-    driver.get(UrlConstants.createCustomer);
+    getDriver().get(UrlConstants.createCustomer);
 
     final Customer customer = customers.get(0);
 
@@ -322,7 +323,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
     customers.add(newCustomer.get());
 
     // ? info : step - search both
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final String query = customer.firstName.get();
 

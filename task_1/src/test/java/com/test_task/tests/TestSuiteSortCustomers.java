@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.apache.hc.core5.util.Asserts;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -43,31 +44,33 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   List<Customer> customers;
 
   @BeforeEach
+  // @BeforeAll
   public void initPageObjects() {
-    loginPage = PageFactory.initElements(driver, LoginPage.class);
-    customersListPage = PageFactory.initElements(driver, CustomersListPage.class);
-    createCustomerPage = PageFactory.initElements(driver, CreateCustomerPage.class);
-    openAccountPage = PageFactory.initElements(driver, OpenAccountPage.class);
+    loginPage = PageFactory.initElements(getDriver(), LoginPage.class);
+    customersListPage = PageFactory.initElements(getDriver(), CustomersListPage.class);
+    createCustomerPage = PageFactory.initElements(getDriver(), CreateCustomerPage.class);
+    openAccountPage = PageFactory.initElements(getDriver(), OpenAccountPage.class);
 
     customers = new ArrayList<>();
 
     // ? info: login manager
-    driver.get(UrlConstants.base);
+    getDriver().get(UrlConstants.base);
 
     loginPage.login();
 
   }
 
   @BeforeEach
+  // @BeforeAll
   @Step("Delete standarts customers, add new customers with accounts.")
   public void initBaseTestState() {
     // ? info: remove all customers
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
     customersListPage.deleteAllCustomers();
 
     // ? info: add clients
 
-    driver.get(UrlConstants.createCustomer);
+    getDriver().get(UrlConstants.createCustomer);
 
     for (int index = 0; index < 5; index++) {
       final Person newPerson = Utils.createRandomPerson();
@@ -78,7 +81,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
 
     // ? info: add accounts
 
-    driver.get(UrlConstants.addAccountToClient);
+    getDriver().get(UrlConstants.addAccountToClient);
 
     for (int index = 0; index < customers.size(); index++) {
       final Customer currentCustomer = customers.get(index);
@@ -93,7 +96,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   @AfterEach
   public void disposeTestSuiteState() {
     // ? info: clear cookies
-    driver.manage().deleteAllCookies();
+    getDriver().manage().deleteAllCookies();
     customers.clear();
   }
 
@@ -103,7 +106,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   @Description("Test Case #TC009: sort alphabetically.")
   @Story("User opened customers list page and sort table by name reverse alphabetical order.")
   public void sortByNameAlphabetically() {
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final List<TableCustomer> localSortedAllCustomersInTheTable = customersListPage
         .getAllCustomersInTheTable().get();
@@ -135,7 +138,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   @Description("Test Case #TC010: sort by name reverse alphabetical order.")
   @Story("User opened customers list page and sort table by name reverse alphabetical order.")
   public void sortByNameReverseAlphabetically() {
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     final List<TableCustomer> localSortedAllCustomersInTheTable = customersListPage
         .getAllCustomersInTheTable().get();
@@ -165,7 +168,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   @Description("Test Case #TC011: Performing a sort with an empty customer table.")
   @Story("User opened customers list page with empty table and tries to sort by name.")
   public void sortEmptyTable() {
-    driver.get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.customersList);
 
     customersListPage.deleteAllCustomers();
     customersListPage.sortCustomersByName();

@@ -78,7 +78,7 @@
       <scope>test</scope>
     </dependency>
 
-    
+
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
@@ -110,6 +110,15 @@
               <name>listener</name>
               <value>io.qameta.allure.junit5.AllureJunit5</value>
             </property>
+
+            
+            <!-- ? info: parallel mode for test runner -->
+            <configurationParameters>
+              junit.jupiter.execution.parallel.enabled = true
+              junit.jupiter.execution.parallel.mode.default = same_thread
+              junit.jupiter.execution.parallel.mode.classes.default = concurrent
+            </configurationParameters>
+
           </properties>
           <includes>
             <include>**/tests/**.java</include>
@@ -130,6 +139,8 @@
 
           </systemProperties>
           <reportFormat>plain</reportFormat>
+
+
         </configuration>
         <dependencies>
           <dependency>
@@ -202,6 +213,19 @@
         <capabilities>/opera.capabilities</capabilities>
       </properties>
     </profile>
+
+    <!-- Active by Default - execute tests in parallel
+    <profile>
+      <id>parallel</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <enable-parallel-tests>true</enable-parallel-tests>
+        <enable-parallel-tests>true</enable-parallel-tests>
+        <excluded-groups>SINGLE_THREAD_ONLY</excluded-groups>
+      </properties>
+    </profile> -->
 
     <!-- environments -->
     <!-- grid -->
