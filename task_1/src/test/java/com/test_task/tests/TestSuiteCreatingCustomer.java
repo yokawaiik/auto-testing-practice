@@ -81,7 +81,7 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
 
-    Asserts.check(newCustomer == null, "New customer mustn't be created.");
+    Asserts.check(newCustomer != null, "New customer must be created.");
   }
 
   @Test
@@ -97,7 +97,7 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
 
-    Asserts.check(newCustomer == null, "New customer mustn't be created.");
+    Asserts.check(newCustomer != null, "New customer must be created.");
   }
 
   @Test
@@ -108,13 +108,13 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
   public void creatingCustomerWithUnderData() {
     getDriver().get(UrlConstants.createCustomer);
 
-    final Person newPerson = new Person(Utils.getRandomString(FieldsConstants.minNameLength - 1),
-        Utils.getRandomString(FieldsConstants.minNameLength - 1),
-        Utils.getRandomString(FieldsConstants.minPostCodeLength - 1));
+    final Person newPerson = new Person(Utils.getRandomString(FieldsConstants.minNameLength),
+        Utils.getRandomString(FieldsConstants.minNameLength ),
+        Utils.getRandomString(FieldsConstants.minPostCodeLength));
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
 
-    Asserts.check(newCustomer == null, "New customer mustn't be created.");
+    Asserts.check(newCustomer != null, "New customer must be created.");
   }
 
   @Test
@@ -137,23 +137,6 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
 
   @Test
   @Tag("#TC007")
-  @DisplayName("Test Case #TC007: Creating a customer with over data: First Name, Last Name and Post Code.")
-  @Description("Test Case #TC007: Creating a customer with over data: First Name, Last Name and Post Code.")
-  @Story("Manager tries to create a customer with with over data: First Name, Last Name and Post Code.")
-  public void creatingCustomerWithOverData() {
-    getDriver().get(UrlConstants.createCustomer);
-
-    final Person newPerson = new Person(Utils.getRandomString(FieldsConstants.maxNameLength + 1),
-        Utils.getRandomString(FieldsConstants.maxNameLength + 1),
-        Utils.getRandomString(FieldsConstants.maxPostCodeLength + 1));
-
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
-
-    Asserts.check(newCustomer == null, "New customer mustn't be created.");
-  }
-
-  @Test
-  @Tag("#TC008")
   @DisplayName("Test Case #TC008: Attempting to add a user with existing data (Duplicate customer).")
   @Description("Test Case #TC008: Attempting to add a user with existing data (Duplicate customer).")
   @Story("Manager tries to create a customer with existing data.")

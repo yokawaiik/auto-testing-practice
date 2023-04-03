@@ -100,7 +100,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC009")
+  @Tag("#TC008")
   @DisplayName("Test Case #TC009: sort alphabetically.")
   @Description("Test Case #TC009: sort alphabetically.")
   @Story("User opened customers list page and sort table by name reverse alphabetical order.")
@@ -132,7 +132,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC010")
+  @Tag("#TC009")
   @DisplayName("Test Case #TC010: sort by name reverse alphabetical order.")
   @Description("Test Case #TC010: sort by name reverse alphabetical order.")
   @Story("User opened customers list page and sort table by name reverse alphabetical order.")
@@ -162,7 +162,7 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC011")
+  @Tag("#TC010")
   @DisplayName("Test Case #TC011: Performing a sort with an empty customer table.")
   @Description("Test Case #TC011: Performing a sort with an empty customer table.")
   @Story("User opened customers list page with empty table and tries to sort by name.")

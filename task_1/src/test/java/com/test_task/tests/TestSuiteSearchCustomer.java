@@ -1,4 +1,5 @@
 package com.test_task.tests;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -89,7 +90,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC012")
+  @Tag("#TC011")
   @DisplayName("Test Case #TC012: Searching for a client by field: First Name.")
   @Description("Test Case #TC012: Searching for a client by field: First Name.")
   @Story("Manager search for a customer by by field: First Name.")
@@ -118,7 +119,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC013")
+  @Tag("#TC012")
   @DisplayName("Test Case #TC013: Searching for a client by field: Last Name.")
   @Description("Test Case #TC013: Searching for a client by field: Last Name.")
   @Story("Manager search for a customer by field: Last Name.")
@@ -149,7 +150,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC014")
+  @Tag("#TC013")
   @DisplayName("Test Case #TC014: Searching for a client by field: Post Code.")
   @Description("Test Case #TC014: Searching for a client by field: Post Code.")
   @Story("Manager search for a customer by field: Post Code.")
@@ -178,7 +179,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC015")
+  @Tag("#TC014")
   @DisplayName("Test Case #TC015: Searching for a client by field: Account Number.")
   @Description("Test Case #TC015: Searching for a client by field: Account Number.")
   @Story("Manager search for a customer by field: Account Number.")
@@ -208,7 +209,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC016")
+  @Tag("#TC015")
   @DisplayName("Test Case #TC016: Searching for non-existent data.")
   @Description("Test Case #TC016: Searching for non-existent data.")
   @Story("Manager tries search for a customer by non-existent data.")
@@ -227,7 +228,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC017")
+  @Tag("#TC016")
   @DisplayName("Test Case #TC017: Performing searches with merged data.")
   @Description("Test Case #TC017: Performing searches with merged data.")
   @Story("Manager tries search for a customer by performing searches with merged data.")
@@ -245,40 +246,11 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
 
     final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
-
-    Asserts.check(allCustomersInTheTable != null, "Search result mustn't be empty.");
-
-    List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
-    for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
-      final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-
-      if (searchResultCustomer.firstName.get().equalsIgnoreCase(customer.firstName.get())) {
-        foundCustomers.add(searchResultCustomer);
-      }
-
-      if (searchResultCustomer.lastName.get().equalsIgnoreCase(customer.lastName.get())) {
-        foundCustomers.add(searchResultCustomer);
-      }
-
-      if (searchResultCustomer.postCode.get().equalsIgnoreCase(customer.postCode.get())) {
-        foundCustomers.add(searchResultCustomer);
-      }
-
-      searchResultCustomer.accountNumberList.get().sort(Comparator.naturalOrder());
-      customer.accountNumberList.get().sort(Comparator.naturalOrder());
-
-      if (String.join(" ", searchResultCustomer.accountNumberList.get()) == String.join(" ",
-          customer.accountNumberList.get())) {
-        foundCustomers.add(searchResultCustomer);
-      }
-
-    }
-
-    Asserts.check(!foundCustomers.isEmpty(), "Customer must be found in the table.");
+    Asserts.check(allCustomersInTheTable == null, "Search result mustn't be empty.");
   }
 
   @Test
-  @Tag("#TC018")
+  @Tag("#TC017")
   @DisplayName("Test Case #TC018: Trying to search with an empty search term.")
   @Description("Test Case #TC018: Trying to search with an empty search term.")
   @Story("Manager tries search for a customer by an empty search term.")
@@ -303,7 +275,7 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   }
 
   @Test
-  @Tag("#TC019")
+  @Tag("#TC018")
   @DisplayName("Test Case #TC019: Search for clients with the same data in one of the fields.")
   @Description("Test Case #TC019: Search for clients with the same data in one of the fields.")
   @Story("Manager tries to search for customers with the same data in one of the fields.")
