@@ -53,7 +53,7 @@ public class OpenAccountPage extends Page {
       // Press the OK button
       alert.accept();
 
-      return Optional.of(String.valueOf(createdCustomerAccountNumber));
+      return Optional.of(String.valueOf(createdCustomerAccountNumber.get()));
     } catch (Exception e) {
       return null;
     }

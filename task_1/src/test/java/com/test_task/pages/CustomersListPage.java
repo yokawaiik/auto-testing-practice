@@ -58,6 +58,7 @@ public class CustomersListPage extends Page {
 
   @Step("Get all customers un the table.")
   public Optional<List<TableCustomer>> getAllCustomersInTheTable() {
+
     try {
       Iterator<WebElement> tableRowListIterator = tableRowList.iterator();
 
@@ -93,13 +94,15 @@ public class CustomersListPage extends Page {
       }
 
       if (tableCustomerList.isEmpty()) {
-        return Optional.of(null);
+        return null;
       } else {
         return Optional.of(tableCustomerList);
       }
 
     } catch (Exception e) {
-      return Optional.of(null);
+      System.out.println("---------------Exception - e: " + e);
+
+      return null;
     }
 
   }

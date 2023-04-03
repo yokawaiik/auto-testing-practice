@@ -161,8 +161,8 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
 
   @Test
   @Tag("#TC011")
-  @DisplayName("Test Case #TC011: sort by name reverse alphabetical order.")
-  @Description("Test Case #TC011: sort by name reverse alphabetical order.")
+  @DisplayName("Test Case #TC011: Performing a sort with an empty customer table.")
+  @Description("Test Case #TC011: Performing a sort with an empty customer table.")
   @Story("User opened customers list page with empty table and tries to sort by name.")
   public void sortEmptyTable() {
     driver.get(UrlConstants.customersList);

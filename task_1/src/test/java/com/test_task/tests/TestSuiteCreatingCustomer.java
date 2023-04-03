@@ -24,20 +24,15 @@ import io.qameta.allure.Story;
 public class TestSuiteCreatingCustomer extends JUnitTestBase {
 
   private LoginPage loginPage;
-
   private CreateCustomerPage createCustomerPage;
 
   @BeforeEach
   public void initPageObjects() {
     loginPage = PageFactory.initElements(driver, LoginPage.class);
     createCustomerPage = PageFactory.initElements(driver, CreateCustomerPage.class);
-
     // ? info: login manager
-
     driver.get(UrlConstants.base);
-
     loginPage.login();
-
   }
 
   @AfterEach
@@ -65,7 +60,8 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
   @Story("Manager tries to create a new customer with a missing required field.")
   public void creatingCustomerWithMissingRequiredField() {
     driver.get(UrlConstants.createCustomer);
-    final Person newPerson = new Person(Utils.getRandomFirstName(), Utils.getRandomLastName(), null);
+
+    final Person newPerson = new Person(Utils.getRandomFirstName(), Utils.getRandomLastName(), "");
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
 
@@ -172,4 +168,3 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
   }
 
 }
-

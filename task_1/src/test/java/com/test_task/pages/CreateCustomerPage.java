@@ -53,12 +53,14 @@ public class CreateCustomerPage extends Page {
 
       final Alert alert = driver.switchTo().alert();
 
-
       final Optional<Integer> customerId = _getCreatedCustomerId(alert.getText());
-      if (customerId == null)
-        return null;
+
       // ? info: Press the OK button
       alert.accept();
+
+      if (customerId == null) {
+        return null;
+      }
 
       return Optional.of(new Customer(person, customerId.get()));
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class TableCustomer {
 
     public final Optional<String> firstName;
@@ -24,6 +23,12 @@ public class TableCustomer {
             this.accountNumberList = accountNumberList;
         }
 
+    }
+
+    @Override
+    public int hashCode() {
+
+        return (firstName.get() + lastName.get() + postCode.get() + accountNumberList.get().toString()).hashCode();
     }
 
 }

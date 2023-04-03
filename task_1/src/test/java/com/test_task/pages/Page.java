@@ -1,12 +1,16 @@
 package com.test_task.pages;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.test_task.constants.TestConstants;
 
 /**
  * Abstract class representation of a Page in the UI. Page object pattern
@@ -40,8 +44,20 @@ public abstract class Page {
   }
 
   public void waitForAlertDialog() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TestConstants.waitIntervalInMilliseconds));
     wait.until(ExpectedConditions.alertIsPresent());
+  }
+
+  public Optional<WebElement> waitWhileElementToBeClickable(By by) {
+
+    for (int index = 0; index < TestConstants.waitingAttemptsCount; index++) {
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(TestConstants.waitIntervalInMilliseconds));
+      final var element = wait.until(ExpectedConditions.elementToBeClickable(by));
+      if (element != null) {
+        return Optional.of(element);
+      }
+    }
+    return null;
   }
 
 }

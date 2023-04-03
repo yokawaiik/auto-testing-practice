@@ -9,9 +9,9 @@ public class Person {
     public final Optional<String> postCode;
 
     public Person(String firstName, String lastName, String postCode) {
-        this.firstName = Optional.fromNullable(firstName);
-        this.lastName = Optional.fromNullable(lastName);
-        this.postCode = Optional.fromNullable(postCode);
+        this.firstName = Optional.of(firstName);
+        this.lastName = Optional.of(lastName);
+        this.postCode = Optional.of(postCode);
     }
 
     public Person(Optional<String> firstName, Optional<String> lastName, Optional<String> postCode) {

@@ -3,7 +3,7 @@ package com.test_task.configuration;
 import java.net.URL;
 import java.time.Duration;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
+
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

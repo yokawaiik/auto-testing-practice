@@ -1,5 +1,6 @@
 package com.test_task.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,8 +21,10 @@ public class LoginPage extends Page {
 
   @Step("Log in the site like a manager.")
   public void login() {
-    
+
+    waitWhileElementToBeClickable(By.xpath(LoginPageLocators.loginButton));
     loginButton.click();
+
   }
 
 }
