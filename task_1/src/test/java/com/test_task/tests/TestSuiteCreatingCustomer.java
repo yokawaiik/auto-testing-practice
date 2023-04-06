@@ -35,11 +35,6 @@ public class TestSuiteCreatingCustomer extends BaseTest {
     loginPage.login();
   }
 
-  @AfterEach
-  public void disposeTestSuiteState() {
-    getDriver().manage().deleteAllCookies();
-  }
-
   @Test
   @Tag("#TC001")
   @DisplayName("Test Case #TC001: Creating a client with correct data.")

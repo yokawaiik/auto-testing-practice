@@ -85,11 +85,6 @@ public class TestSuiteSortCustomers extends BaseTest {
 
   }
 
-  @AfterEach
-  public void disposeTestSuiteState() {
-    getDriver().manage().deleteAllCookies();
-    customers.clear();
-  }
 
   @Test
   @Tag("#TC008")

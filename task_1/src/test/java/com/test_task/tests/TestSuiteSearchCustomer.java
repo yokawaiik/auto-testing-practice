@@ -73,11 +73,6 @@ public class TestSuiteSearchCustomer extends BaseTest {
     }
   }
 
-  @AfterEach
-  public void disposeTestSuiteState() {
-    getDriver().manage().deleteAllCookies();
-  }
-
   @Test
   @Tag("#TC011")
   @DisplayName("Test Case #TC012: Searching for a client by field: First Name.")
