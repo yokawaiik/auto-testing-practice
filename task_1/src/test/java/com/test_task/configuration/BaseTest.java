@@ -26,13 +26,15 @@ import org.openqa.selenium.Capabilities;
  * Base class for all the JUnit-based test classes
  */
 
-public class JUnitTestBase {
+public class BaseTest {
 
   protected static URL gridHubUrl;
   protected static String baseUrl;
   protected static Capabilities capabilities;
 
   protected ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+
+  // protected SuiteConfiguration config;
 
   protected WebDriver getDriver() {
     return driver.get();
@@ -51,10 +53,21 @@ public class JUnitTestBase {
 
   @BeforeEach
   public void initDriver() throws Throwable {
+    SuiteConfiguration config = new SuiteConfiguration();
 
     WebDriverManager.chromedriver().setup();
+
     ChromeOptions options = new ChromeOptions();
+
+    options.setBrowserVersion(config.appWebdriverChromeVersion);
     options.addArguments("--remote-allow-origins=*");
+    options.addArguments("--disable-extensions");
+    options.addArguments("--disable-dev-shm-usage");
+
+    if (config.appWebdriverModeHeadless == true) {
+      options.addArguments("--headless");
+    }
+
     driver.set(new ChromeDriver(options));
 
     // wait for elements loading

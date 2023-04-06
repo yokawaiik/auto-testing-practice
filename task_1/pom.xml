@@ -23,6 +23,8 @@
 
     <selenium.webdrivermanager>5.3.2</selenium.webdrivermanager>
     <javafaker.version>1.0.2</javafaker.version>
+
+
   </properties>
 
 
@@ -86,6 +88,8 @@
     </dependency>
 
   </dependencies>
+
+
   <build>
     <resources>
       <resource>
@@ -111,7 +115,7 @@
               <value>io.qameta.allure.junit5.AllureJunit5</value>
             </property>
 
-            
+
             <!-- ? info: parallel mode for test runner -->
             <configurationParameters>
               junit.jupiter.execution.parallel.enabled = true
@@ -128,6 +132,11 @@
           </argLine>
           <systemPropertyVariables>
             <application.properties>/application.properties</application.properties>
+
+            <!-- Params with default value -->
+            <app.webdriver.mode.headless>true</app.webdriver.mode.headless>
+            <app.webdriver.chrome.version>111</app.webdriver.chrome.version>
+
           </systemPropertyVariables>
           <systemProperties>
 

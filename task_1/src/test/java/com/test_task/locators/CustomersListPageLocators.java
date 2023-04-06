@@ -1,6 +1,5 @@
 package com.test_task.locators;
 
-
 public class CustomersListPageLocators {
     public static final String searchCustomer = "//input[@ng-model='searchCustomer']";
     public static final String firstNameSortType = "//a[contains(@ng-click,'sortType') and contains(string(),'First Name')]";

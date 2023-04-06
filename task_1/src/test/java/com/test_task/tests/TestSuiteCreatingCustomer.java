@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.PageFactory;
-import com.test_task.configuration.JUnitTestBase;
+import com.test_task.configuration.BaseTest;
 import com.test_task.constants.FieldsConstants;
 import com.test_task.constants.UrlConstants;
 import com.test_task.models.Customer;
@@ -22,7 +22,7 @@ import io.qameta.allure.Story;
 
 
 @Epic("Test Suite: creating a customer")
-public class TestSuiteCreatingCustomer extends JUnitTestBase {
+public class TestSuiteCreatingCustomer extends BaseTest {
 
   private LoginPage loginPage;
   private CreateCustomerPage createCustomerPage;
@@ -31,14 +31,12 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
   public void initPageObjects() {
     loginPage = PageFactory.initElements(getDriver(), LoginPage.class);
     createCustomerPage = PageFactory.initElements(getDriver(), CreateCustomerPage.class);
-    // ? info: login manager
     getDriver().get(UrlConstants.base);
     loginPage.login();
   }
 
   @AfterEach
   public void disposeTestSuiteState() {
-    // clear cookies
     getDriver().manage().deleteAllCookies();
   }
 
@@ -148,7 +146,6 @@ public class TestSuiteCreatingCustomer extends JUnitTestBase {
     final Optional<Customer> theSameCustomer = createCustomerPage.addCustomer(newPerson);
 
     Asserts.check(theSameCustomer == null, "New customer can't be null.");
-
   }
 
 }

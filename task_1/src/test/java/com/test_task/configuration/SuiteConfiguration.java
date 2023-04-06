@@ -16,13 +16,18 @@ public class SuiteConfiguration {
 
   private Properties properties;
 
+  public boolean appWebdriverModeHeadless;
+  public String appWebdriverChromeVersion;
+
   public SuiteConfiguration() throws IOException {
-  	this(System.getProperty("application.properties", DEBUG_PROPERTIES));
+    this(System.getProperty("application.properties", DEBUG_PROPERTIES));
   }
 
   public SuiteConfiguration(String fromResource) throws IOException {
     properties = new Properties();
     properties.load(SuiteConfiguration.class.getResourceAsStream(fromResource));
+    appWebdriverModeHeadless = Boolean.parseBoolean(System.getProperty("app.webdriver.mode.headless"));
+    appWebdriverChromeVersion = System.getProperty("app.webdriver.chrome.version");
   }
 
   public Capabilities getCapabilities() throws IOException {

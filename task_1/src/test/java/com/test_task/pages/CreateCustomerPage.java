@@ -3,16 +3,13 @@ package com.test_task.pages;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import com.test_task.locators.CreateCustomerPageLocators;
 import com.test_task.models.Customer;
 import com.test_task.models.Person;
-
 import io.qameta.allure.Step;
 
 public class CreateCustomerPage extends Page {
@@ -31,7 +28,6 @@ public class CreateCustomerPage extends Page {
 
   public CreateCustomerPage(WebDriver webDriver) {
     super(webDriver);
-
   }
 
   @Step("Add new customer.")
@@ -53,27 +49,21 @@ public class CreateCustomerPage extends Page {
 
       final Alert alert = driver.switchTo().alert();
 
-      final Optional<Integer> customerId = _getCreatedCustomerId(alert.getText());
-
-      // ? info: Press the OK button
+      final Optional<Integer> customerId = getCreatedCustomerId(alert.getText());
       alert.accept();
 
       if (customerId == null) {
         return null;
       }
-
       return Optional.of(new Customer(person, customerId.get()));
-
     }
 
     catch (Exception e) {
       return null;
     }
-
   }
 
-  private Optional<Integer> _getCreatedCustomerId(String text) {
-
+  private Optional<Integer> getCreatedCustomerId(String text) {
     final String regex = "\\d+";
     final Pattern pattern = Pattern.compile(regex);
     final Matcher matcher = pattern.matcher(text);
@@ -84,7 +74,6 @@ public class CreateCustomerPage extends Page {
     }
 
     return null;
-
   }
 
 }

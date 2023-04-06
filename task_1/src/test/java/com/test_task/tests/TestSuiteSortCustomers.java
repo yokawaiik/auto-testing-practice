@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import org.openqa.selenium.support.PageFactory;
 
-import com.test_task.configuration.JUnitTestBase;
+import com.test_task.configuration.BaseTest;
 import com.test_task.constants.UrlConstants;
 import com.test_task.enums.TableSortOrder;
 import com.test_task.models.Customer;
@@ -33,7 +33,7 @@ import io.qameta.allure.Step;
 import io.qameta.allure.Story;
 
 @Epic("Test Suite: search a customer")
-public class TestSuiteSortCustomers extends JUnitTestBase {
+public class TestSuiteSortCustomers extends BaseTest {
 
   private LoginPage loginPage;
   private CustomersListPage customersListPage;
@@ -43,7 +43,6 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   List<Customer> customers;
 
   @BeforeEach
-  // @BeforeAll
   public void initPageObjects() {
     loginPage = PageFactory.initElements(getDriver(), LoginPage.class);
     customersListPage = PageFactory.initElements(getDriver(), CustomersListPage.class);
@@ -52,7 +51,6 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
 
     customers = new ArrayList<>();
 
-    // ? info: login manager
     getDriver().get(UrlConstants.base);
 
     loginPage.login();
@@ -60,14 +58,11 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
   }
 
   @BeforeEach
-  // @BeforeAll
   @Step("Delete standarts customers, add new customers with accounts.")
   public void initBaseTestState() {
     // ? info: remove all customers
     getDriver().get(UrlConstants.customersList);
     customersListPage.deleteAllCustomers();
-
-    // ? info: add clients
 
     getDriver().get(UrlConstants.createCustomer);
 
@@ -77,8 +72,6 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
       Asserts.check(newCustomer.isPresent(), "New customer can't be null.");
       customers.add(newCustomer.get());
     }
-
-    // ? info: add accounts
 
     getDriver().get(UrlConstants.addAccountToClient);
 
@@ -94,7 +87,6 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
 
   @AfterEach
   public void disposeTestSuiteState() {
-    // ? info: clear cookies
     getDriver().manage().deleteAllCookies();
     customers.clear();
   }
@@ -113,7 +105,6 @@ public class TestSuiteSortCustomers extends JUnitTestBase {
     Collections.sort(localSortedAllCustomersInTheTable,
         new TableCustomersNameComparator(TableSortOrder.alphabetically));
 
-    // ? info Alphabetically requires two clicks
     customersListPage.sortCustomersByName();
     customersListPage.sortCustomersByName();
 

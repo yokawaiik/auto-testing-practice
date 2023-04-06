@@ -3,16 +3,13 @@ package com.test_task.pages;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-
 import com.test_task.locators.OpenAccountPageLocators;
 import com.test_task.models.Customer;
-
 import io.qameta.allure.Step;
 
 public class OpenAccountPage extends Page {
@@ -47,10 +44,9 @@ public class OpenAccountPage extends Page {
 
       final Alert alert = driver.switchTo().alert();
 
-      final Optional<Integer> createdCustomerAccountNumber = _getCreatedCustomerAccountNumber(alert.getText());
+      final Optional<Integer> createdCustomerAccountNumber = getCreatedCustomerAccountNumber(alert.getText());
       if (createdCustomerAccountNumber == null)
         return null;
-      // Press the OK button
       alert.accept();
 
       return Optional.of(String.valueOf(createdCustomerAccountNumber.get()));
@@ -60,7 +56,7 @@ public class OpenAccountPage extends Page {
 
   }
 
-  private Optional<Integer> _getCreatedCustomerAccountNumber(String text) {
+  private Optional<Integer> getCreatedCustomerAccountNumber(String text) {
 
     final String regex = "\\d+";
     final Pattern pattern = Pattern.compile(regex);
@@ -72,7 +68,6 @@ public class OpenAccountPage extends Page {
     }
 
     return null;
-
   }
 
 }

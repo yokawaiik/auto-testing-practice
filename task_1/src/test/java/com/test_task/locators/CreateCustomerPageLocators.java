@@ -1,6 +1,5 @@
 package com.test_task.locators;
 
-
 public class CreateCustomerPageLocators {
     public static final String firstNameField = "//input[@ng-model='fName']";
     public static final String lastNameField = "//input[@ng-model='lName']";

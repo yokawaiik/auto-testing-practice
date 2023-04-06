@@ -40,7 +40,9 @@ public class Utils {
         return faker.lorem().characters(minLength, maxLength, false, false);
     }
 
-    public static String getRandomString(int length, boolean includeUppercase,
+    public static String getRandomString(
+            int length,
+            boolean includeUppercase,
             boolean includeSpecial) {
 
         return faker.lorem().characters(length, false, false);

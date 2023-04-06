@@ -1,7 +1,6 @@
 package com.test_task.tests;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.apache.hc.core5.util.Asserts;
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.PageFactory;
-import com.test_task.configuration.JUnitTestBase;
+import com.test_task.configuration.BaseTest;
 import com.test_task.constants.UrlConstants;
 import com.test_task.models.Customer;
 import com.test_task.models.Person;
@@ -26,7 +25,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
 
 @Epic("Test Suite: search a customer")
-public class TestSuiteSearchCustomer extends JUnitTestBase {
+public class TestSuiteSearchCustomer extends BaseTest {
 
   private LoginPage loginPage;
   private CustomersListPage customersListPage;
@@ -44,20 +43,16 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
 
     customers = new ArrayList<>();
 
-    // ? info: login manager
     getDriver().get(UrlConstants.base);
 
     loginPage.login();
-
   }
 
   @BeforeEach
   public void initBaseTestState() {
-    // ? info: remove all customers
+    // remove all customers
     getDriver().get(UrlConstants.customersList);
     customersListPage.deleteAllCustomers();
-
-    // ? info: add clients
 
     getDriver().get(UrlConstants.createCustomer);
 
@@ -68,8 +63,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
       customers.add(newCustomer.get());
     }
 
-    // ? info: add accounts
-
     getDriver().get(UrlConstants.addAccountToClient);
 
     for (int index = 0; index < customers.size(); index++) {
@@ -77,16 +70,12 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
       Optional<String> oppenedAccountNumber = openAccountPage.openCustomerAccount(currentCustomer);
       Asserts.check(oppenedAccountNumber.isPresent(), "Account must be created.");
       currentCustomer.addAccountNumber(oppenedAccountNumber.get());
-
     }
-
   }
 
   @AfterEach
   public void disposeTestSuiteState() {
-    // clear cookies
     getDriver().manage().deleteAllCookies();
-
   }
 
   @Test
@@ -107,15 +96,12 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
     List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
     for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
       final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-
       if (searchResultCustomer.firstName.get().equalsIgnoreCase(customer.firstName.get())) {
         foundCustomers.add(searchResultCustomer);
       }
-
     }
 
     Asserts.check(foundCustomers.isEmpty() == false, "Customer must be found in the table.");
-
   }
 
   @Test
@@ -124,7 +110,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC013: Searching for a client by field: Last Name.")
   @Story("Manager search for a customer by field: Last Name.")
   public void searchForCustomersByFieldLastName() {
-
     getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
@@ -138,15 +123,12 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
     List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
     for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
       final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-
       if (searchResultCustomer.lastName.get() == customer.lastName.get()) {
         foundCustomers.add(searchResultCustomer);
       }
-
     }
 
     Asserts.check(foundCustomers.isEmpty() != false, "Customer must be found in the table.");
-
   }
 
   @Test
@@ -155,7 +137,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC014: Searching for a client by field: Post Code.")
   @Story("Manager search for a customer by field: Post Code.")
   public void searchForCustomersByFieldPostCode() {
-
     getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
@@ -167,15 +148,12 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
     List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
     for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
       final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-
       if (searchResultCustomer.postCode.get().equals(customer.postCode.get())) {
         foundCustomers.add(searchResultCustomer);
       }
-
     }
 
     Asserts.check(!foundCustomers.isEmpty(), "Customer must be found in the table.");
-
   }
 
   @Test
@@ -184,7 +162,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC015: Searching for a client by field: Account Number.")
   @Story("Manager search for a customer by field: Account Number.")
   public void searchForCustomersByFieldAccountNumber() {
-
     getDriver().get(UrlConstants.customersList);
 
     final Customer customer = customers.get(0);
@@ -197,15 +174,12 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
     List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
     for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
       final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-
       if (searchResultCustomer.accountNumberList.get().contains(customer.accountNumberList.get().get(0))) {
         foundCustomers.add(searchResultCustomer);
       }
-
     }
 
     Asserts.check(!foundCustomers.isEmpty(), "Customer must be found in the table.");
-
   }
 
   @Test
@@ -214,7 +188,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC016: Searching for non-existent data.")
   @Story("Manager tries search for a customer by non-existent data.")
   public void searchForCustomerByNonExistentData() {
-
     getDriver().get(UrlConstants.customersList);
 
     final String randomQuery = Utils.getRandomString();
@@ -224,7 +197,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
     final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(allCustomersInTheTable == null, "Search result must be empty.");
-
   }
 
   @Test
@@ -238,7 +210,6 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
 
     final Customer customer = customers.get(0);
 
-    // ? info : merge fields in one query
     final String mergedQuery = customer.firstName.get() + " " + customer.lastName.get() + " " + customer.postCode.get()
         + " " + String.join(" ", customer.accountNumberList.get());
 
@@ -280,24 +251,17 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
   @Description("Test Case #TC019: Search for clients with the same data in one of the fields.")
   @Story("Manager tries to search for customers with the same data in one of the fields.")
   public void searchForCustomersWithTheSameData() {
-
-    // ? info : step - add an another customer with the same data
     getDriver().get(UrlConstants.createCustomer);
 
     final Customer customer = customers.get(0);
-
     final Person newPerson = new Person(customer.firstName.get(), customer.lastName.get(), Utils.getPostCode());
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
     Asserts.check(newCustomer != null, "New customer can't be null.");
 
     customers.add(newCustomer.get());
-
-    // ? info : step - search both
     getDriver().get(UrlConstants.customersList);
-
     final String query = customer.firstName.get();
-
     customersListPage.setSearchField(query);
 
     final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
@@ -311,12 +275,8 @@ public class TestSuiteSearchCustomer extends JUnitTestBase {
       }
 
     }
-    // ? info : step - check
     Asserts.check(foundCustomers.isEmpty() == false, "Search result mustn't be empty.");
-
-    // ? info : because now we have minimum two customers with the same data
     Asserts.check(foundCustomers.size() >= 2, "Customer must be found in the table.");
-
   }
 
 }

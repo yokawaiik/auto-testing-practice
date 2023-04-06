@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-
 import com.beust.jcommander.DynamicParameter;
 import com.test_task.locators.CustomersListPageLocators;
 import com.test_task.models.TableCustomer;
-
 import io.qameta.allure.Step;
 
 public class CustomersListPage extends Page {
@@ -22,16 +19,17 @@ public class CustomersListPage extends Page {
   @FindBy(xpath = CustomersListPageLocators.searchCustomer)
   public WebElement searchCustomer;
 
-  @FindAll({ @FindBy(xpath = CustomersListPageLocators.deleteButton) })
+  // @FindAll({ @FindBy(xpath = CustomersListPageLocators.deleteButton) })
+  @FindBy(xpath = CustomersListPageLocators.deleteButton)
   public List<WebElement> deleteButtonList;
 
-  @DynamicParameter
-  @FindAll({ @FindBy(xpath = CustomersListPageLocators.tableRow) })
+  // @DynamicParameter
+  // @FindAll({ @FindBy(xpath = CustomersListPageLocators.tableRow) })
+  @FindBy(xpath = CustomersListPageLocators.tableRow)
   public List<WebElement> tableRowList;
 
   public CustomersListPage(WebDriver webDriver) {
     super(webDriver);
-
   }
 
   @Step("Type search query in the search field.")
@@ -46,7 +44,6 @@ public class CustomersListPage extends Page {
       buttonIterator.next().click();
       buttonIterator.remove();
     }
-
   }
 
   @Step("Sort customers by name.")
@@ -58,7 +55,6 @@ public class CustomersListPage extends Page {
 
   @Step("Get all customers un the table.")
   public Optional<List<TableCustomer>> getAllCustomersInTheTable() {
-
     try {
       Iterator<WebElement> tableRowListIterator = tableRowList.iterator();
 
@@ -90,7 +86,6 @@ public class CustomersListPage extends Page {
             Optional.of(accountNumberList));
 
         tableCustomerList.add(tableCustomer);
-
       }
 
       if (tableCustomerList.isEmpty()) {
@@ -98,10 +93,8 @@ public class CustomersListPage extends Page {
       } else {
         return Optional.of(tableCustomerList);
       }
-
     } catch (Exception e) {
-      System.out.println("---------------Exception - e: " + e);
-
+      System.out.println("Exception: " + e);
       return null;
     }
 
