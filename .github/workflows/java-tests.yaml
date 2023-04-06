@@ -1,0 +1,43 @@
+# It install dependencies with Maven and then runs tests when brunches be updated
+
+name: Java UI and API tests
+
+on:
+  push:
+    branches: ["#task_1", "#task_2"]
+  pull_request:
+    branches: ["#task_1", "#task_2"]
+
+jobs:
+  Tasks:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/#task_1' ||
+      github.ref == 'refs/heads/#task_2'
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Set up JDK 11 for x64
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "adopt"
+          architecture: x64
+          cache: "maven"
+      - uses: mad9000/actions-find-and-replace-string@2
+        id: task_folder_path
+        with:
+          source: ${{ github.ref_name }}
+          find: "#"
+          replace: ""
+      - name: Install dependencies with Maven
+        run: |
+          cd ${{ steps.task_folder_path.outputs.value }}
+          mvn install
+      - name: Test
+        run: |
+          cd ${{ steps.task_folder_path.outputs.value }}
+          mvn test
