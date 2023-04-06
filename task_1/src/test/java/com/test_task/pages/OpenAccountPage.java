@@ -8,24 +8,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import com.test_task.locators.OpenAccountPageLocators;
 import com.test_task.models.Customer;
 import io.qameta.allure.Step;
 
 public class OpenAccountPage extends Page {
 
-  @FindBy(xpath = OpenAccountPageLocators.selectCustomerId)
+  // @FindBy(xpath = OpenAccountPageLocators.selectCustomerId)
+  @FindBy(xpath = "//select[@ng-model='custId']")
   public WebElement selectCustomerId;
 
-  @FindBy(xpath = OpenAccountPageLocators.selectCurrency)
+  // @FindBy(xpath = OpenAccountPageLocators.selectCurrency)
+  @FindBy(xpath = "//select[@ng-model='currency']")
   public WebElement selectCurrency;
 
-  @FindBy(xpath = OpenAccountPageLocators.buttonProcess)
+  // @FindBy(xpath = OpenAccountPageLocators.buttonProcess)
+  @FindBy(xpath = "//button[@type='submit' and text()='Process']")
   public WebElement buttonProcess;
 
   public OpenAccountPage(WebDriver webDriver) {
     super(webDriver);
-
   }
 
   @Step("Add customer and get it account number.")

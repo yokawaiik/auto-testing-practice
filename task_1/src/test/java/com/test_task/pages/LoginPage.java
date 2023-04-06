@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.test_task.locators.LoginPageLocators;
 import io.qameta.allure.Step;
 public class LoginPage extends Page {
 
-  @FindBy(xpath = LoginPageLocators.loginButton)
+  // @FindBy(xpath = LoginPageLocators.loginButton)
+  @FindBy(xpath = "//button[text()='Bank Manager Login']")
   public WebElement loginButton;
 
   public LoginPage(WebDriver webDriver) {
@@ -17,7 +17,7 @@ public class LoginPage extends Page {
 
   @Step("Log in the site like a manager.")
   public void login() {
-    waitWhileElementToBeClickable(By.xpath(LoginPageLocators.loginButton));
+    waitWhileElementToBeClickable(By.xpath("//button[text()='Bank Manager Login']"));
     loginButton.click();
   }
 

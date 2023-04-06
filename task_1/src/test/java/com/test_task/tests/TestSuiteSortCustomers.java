@@ -51,7 +51,7 @@ public class TestSuiteSortCustomers extends BaseTest {
 
     customers = new ArrayList<>();
 
-    getDriver().get(UrlConstants.base);
+    getDriver().get(UrlConstants.BASE);
 
     loginPage.login();
 
@@ -61,10 +61,10 @@ public class TestSuiteSortCustomers extends BaseTest {
   @Step("Delete standarts customers, add new customers with accounts.")
   public void initBaseTestState() {
     // ? info: remove all customers
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
     customersListPage.deleteAllCustomers();
 
-    getDriver().get(UrlConstants.createCustomer);
+    getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
     for (int index = 0; index < 5; index++) {
       final Person newPerson = Utils.createRandomPerson();
@@ -73,7 +73,7 @@ public class TestSuiteSortCustomers extends BaseTest {
       customers.add(newCustomer.get());
     }
 
-    getDriver().get(UrlConstants.addAccountToClient);
+    getDriver().get(UrlConstants.ADD_ACCOUNT_TO_CLIENT);
 
     for (int index = 0; index < customers.size(); index++) {
       final Customer currentCustomer = customers.get(index);
@@ -97,7 +97,7 @@ public class TestSuiteSortCustomers extends BaseTest {
   @Description("Test Case #TC009: sort alphabetically.")
   @Story("User opened customers list page and sort table by name reverse alphabetical order.")
   public void sortByNameAlphabetically() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final List<TableCustomer> localSortedAllCustomersInTheTable = customersListPage
         .getAllCustomersInTheTable().get();
@@ -128,7 +128,7 @@ public class TestSuiteSortCustomers extends BaseTest {
   @Description("Test Case #TC010: sort by name reverse alphabetical order.")
   @Story("User opened customers list page and sort table by name reverse alphabetical order.")
   public void sortByNameReverseAlphabetically() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final List<TableCustomer> localSortedAllCustomersInTheTable = customersListPage
         .getAllCustomersInTheTable().get();
@@ -158,7 +158,7 @@ public class TestSuiteSortCustomers extends BaseTest {
   @Description("Test Case #TC011: Performing a sort with an empty customer table.")
   @Story("User opened customers list page with empty table and tries to sort by name.")
   public void sortEmptyTable() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     customersListPage.deleteAllCustomers();
     customersListPage.sortCustomersByName();

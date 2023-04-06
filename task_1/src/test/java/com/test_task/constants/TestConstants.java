@@ -1,10 +1,10 @@
 package com.test_task.constants;
 
 public class TestConstants {
-    public static final int waitIntervalInSeconds = 5;
-    public static int waitingAttemptsCount = 3;
-    public static int pageLoadTimeoutInSeconds = 10;
-    public static int implicitlyWaitInMilliseconds = 1000;
-    public static int pollingEvery = 500;
+    public static final int WAIT_INTERVAL_IN_SECONDS = 5;
+    public static int WAITING_ATTEMPTS_COUNT = 3;
+    public static int PAGE_LOAD_TIMEOUT_IN_SECONDS = 10;
+    public static int IMPLICITLY_WAIT_IN_MILLISECONDS = 1000;
+    public static int POLLING_EVERY = 500;
 
 }

@@ -34,8 +34,6 @@ public class BaseTest {
 
   protected ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
-  // protected SuiteConfiguration config;
-
   protected WebDriver getDriver() {
     return driver.get();
   }
@@ -43,7 +41,7 @@ public class BaseTest {
   @BeforeAll
   public static void loadConfig() throws Throwable {
     SuiteConfiguration config = new SuiteConfiguration();
-    baseUrl = UrlConstants.base;
+    baseUrl = UrlConstants.BASE;
     if (config.hasProperty("grid.url") && !"".equals(config.getProperty("grid.url"))) {
       gridHubUrl = new URL(config.getProperty("grid.url"));
     }
@@ -54,9 +52,7 @@ public class BaseTest {
   @BeforeEach
   public void initDriver() throws Throwable {
     SuiteConfiguration config = new SuiteConfiguration();
-
     WebDriverManager.chromedriver().setup();
-
     ChromeOptions options = new ChromeOptions();
 
     options.setBrowserVersion(config.appWebdriverChromeVersion);
@@ -67,13 +63,11 @@ public class BaseTest {
     if (config.appWebdriverModeHeadless == true) {
       options.addArguments("--headless");
     }
-
     driver.set(new ChromeDriver(options));
 
     // wait for elements loading
-    driver.get().manage().timeouts().implicitlyWait(Duration.ofMillis(TestConstants.implicitlyWaitInMilliseconds));
-    driver.get().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestConstants.pageLoadTimeoutInSeconds));
-
+    driver.get().manage().timeouts().implicitlyWait(Duration.ofMillis(TestConstants.IMPLICITLY_WAIT_IN_MILLISECONDS));
+    driver.get().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestConstants.PAGE_LOAD_TIMEOUT_IN_SECONDS));
   }
 
   @AfterEach

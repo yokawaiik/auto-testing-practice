@@ -7,23 +7,26 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.test_task.locators.CreateCustomerPageLocators;
 import com.test_task.models.Customer;
 import com.test_task.models.Person;
 import io.qameta.allure.Step;
 
 public class CreateCustomerPage extends Page {
 
-  @FindBy(xpath = CreateCustomerPageLocators.firstNameField)
+  // @FindBy(xpath = CreateCustomerPageLocators.firstNameField)
+  @FindBy(xpath = "//input[@ng-model='fName']")
   public WebElement firstNameField;
 
-  @FindBy(xpath = CreateCustomerPageLocators.lastNameField)
+  // @FindBy(xpath = CreateCustomerPageLocators.lastNameField)
+  @FindBy(xpath = "//input[@ng-model='lName']")
   public WebElement lastNameField;
 
-  @FindBy(xpath = CreateCustomerPageLocators.postCodeField)
+  // @FindBy(xpath = CreateCustomerPageLocators.postCodeField)
+  @FindBy(xpath = "//input[@ng-model='postCd']")
   public WebElement postCodeField;
 
-  @FindBy(xpath = CreateCustomerPageLocators.addCustomerButton)
+  // @FindBy(xpath = CreateCustomerPageLocators.addCustomerButton)
+  @FindBy(xpath = "//button[text()='Add Customer']")
   public WebElement addCustomerButton;
 
   public CreateCustomerPage(WebDriver webDriver) {

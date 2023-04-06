@@ -43,7 +43,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customers = new ArrayList<>();
 
-    getDriver().get(UrlConstants.base);
+    getDriver().get(UrlConstants.BASE);
 
     loginPage.login();
   }
@@ -51,10 +51,10 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @BeforeEach
   public void initBaseTestState() {
     // remove all customers
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
     customersListPage.deleteAllCustomers();
 
-    getDriver().get(UrlConstants.createCustomer);
+    getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
     for (int index = 0; index < 5; index++) {
       final Person newPerson = Utils.createRandomPerson();
@@ -63,7 +63,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
       customers.add(newCustomer.get());
     }
 
-    getDriver().get(UrlConstants.addAccountToClient);
+    getDriver().get(UrlConstants.ADD_ACCOUNT_TO_CLIENT);
 
     for (int index = 0; index < customers.size(); index++) {
       final Customer currentCustomer = customers.get(index);
@@ -84,7 +84,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC012: Searching for a client by field: First Name.")
   @Story("Manager search for a customer by by field: First Name.")
   public void searchForCustomersByFirstName() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Customer customer = customers.get(0);
 
@@ -110,7 +110,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC013: Searching for a client by field: Last Name.")
   @Story("Manager search for a customer by field: Last Name.")
   public void searchForCustomersByFieldLastName() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Customer customer = customers.get(0);
 
@@ -137,7 +137,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC014: Searching for a client by field: Post Code.")
   @Story("Manager search for a customer by field: Post Code.")
   public void searchForCustomersByFieldPostCode() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Customer customer = customers.get(0);
 
@@ -162,7 +162,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC015: Searching for a client by field: Account Number.")
   @Story("Manager search for a customer by field: Account Number.")
   public void searchForCustomersByFieldAccountNumber() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Customer customer = customers.get(0);
 
@@ -188,7 +188,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC016: Searching for non-existent data.")
   @Story("Manager tries search for a customer by non-existent data.")
   public void searchForCustomerByNonExistentData() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final String randomQuery = Utils.getRandomString();
 
@@ -206,7 +206,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Story("Manager tries search for a customer by performing searches with merged data.")
   public void searchForCustomerByMergedSearchTerms() {
 
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Customer customer = customers.get(0);
 
@@ -226,7 +226,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC018: Trying to search with an empty search term.")
   @Story("Manager tries search for a customer by an empty search term.")
   public void searchForCustomerByAnEmptySearchTerm() {
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Optional<List<TableCustomer>> allCustomersInTheTableBeforeQuery = customersListPage
         .getAllCustomersInTheTable();
@@ -251,7 +251,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
   @Description("Test Case #TC019: Search for clients with the same data in one of the fields.")
   @Story("Manager tries to search for customers with the same data in one of the fields.")
   public void searchForCustomersWithTheSameData() {
-    getDriver().get(UrlConstants.createCustomer);
+    getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
     final Customer customer = customers.get(0);
     final Person newPerson = new Person(customer.firstName.get(), customer.lastName.get(), Utils.getPostCode());
@@ -260,7 +260,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
     Asserts.check(newCustomer != null, "New customer can't be null.");
 
     customers.add(newCustomer.get());
-    getDriver().get(UrlConstants.customersList);
+    getDriver().get(UrlConstants.CUSTOMERS_LIST);
     final String query = customer.firstName.get();
     customersListPage.setSearchField(query);
 

@@ -7,25 +7,22 @@ import java.util.Optional;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import com.beust.jcommander.DynamicParameter;
-import com.test_task.locators.CustomersListPageLocators;
 import com.test_task.models.TableCustomer;
 import io.qameta.allure.Step;
 
 public class CustomersListPage extends Page {
 
-  @FindBy(xpath = CustomersListPageLocators.searchCustomer)
+  // @FindBy(xpath = CustomersListPageLocators.searchCustomer)
+  @FindBy(xpath = "//input[@ng-model='searchCustomer']")
   public WebElement searchCustomer;
 
-  // @FindAll({ @FindBy(xpath = CustomersListPageLocators.deleteButton) })
-  @FindBy(xpath = CustomersListPageLocators.deleteButton)
+  // @FindBy(xpath = CustomersListPageLocators.deleteButton)
+  @FindBy(xpath = "//button[contains(@ng-click,'deleteCust') and contains(string(),'Delete')]")
   public List<WebElement> deleteButtonList;
 
-  // @DynamicParameter
-  // @FindAll({ @FindBy(xpath = CustomersListPageLocators.tableRow) })
-  @FindBy(xpath = CustomersListPageLocators.tableRow)
+  // @FindBy(xpath = CustomersListPageLocators.tableRow)
+  @FindBy(xpath = "//table[contains(@class,'table')]//tr[contains(@class,'ng-scope')]")
   public List<WebElement> tableRowList;
 
   public CustomersListPage(WebDriver webDriver) {
@@ -49,7 +46,7 @@ public class CustomersListPage extends Page {
   @Step("Sort customers by name.")
   public void sortCustomersByName() {
     final WebElement firstNameSortTypeButton = driver
-        .findElement(By.xpath(CustomersListPageLocators.firstNameSortType));
+        .findElement(By.xpath("//a[contains(@ng-click,'sortType') and contains(string(),'First Name')]"));
     firstNameSortTypeButton.click();
   }
 
@@ -65,7 +62,8 @@ public class CustomersListPage extends Page {
         final WebElement row = tableRowListIterator.next();
 
         final List<WebElement> tableDataElements = row
-            .findElements(By.xpath(CustomersListPageLocators.relativeTableData));
+            // .findElements(By.xpath(CustomersListPageLocators.relativeTableData));
+            .findElements(By.xpath(".//td"));
 
         final String firstName = tableDataElements.get(0).getText();
         final String lastName = tableDataElements.get(1).getText();
