@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.test_task_api.models.LimitedPokemonList;
 import com.test_task_api.models.Pokemon;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
