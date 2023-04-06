@@ -1,7 +1,8 @@
 # API testing
 
-## Test cases docs
+Auto tests for pokemon api.
 
+## Test cases docs
 https://docs.google.com/document/d/1VCJONfXgDyiTFbkOKyV65-dZzwqEDY0yNZh7v-Vo9I0/edit?usp=sharing
 
 ## Stack:
