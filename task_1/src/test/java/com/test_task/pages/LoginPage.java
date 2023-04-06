@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import io.qameta.allure.Step;
 public class LoginPage extends Page {
 
-  // @FindBy(xpath = LoginPageLocators.loginButton)
   @FindBy(xpath = "//button[text()='Bank Manager Login']")
   public WebElement loginButton;
 

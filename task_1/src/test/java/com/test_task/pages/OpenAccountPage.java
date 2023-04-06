@@ -13,15 +13,12 @@ import io.qameta.allure.Step;
 
 public class OpenAccountPage extends Page {
 
-  // @FindBy(xpath = OpenAccountPageLocators.selectCustomerId)
   @FindBy(xpath = "//select[@ng-model='custId']")
   public WebElement selectCustomerId;
 
-  // @FindBy(xpath = OpenAccountPageLocators.selectCurrency)
   @FindBy(xpath = "//select[@ng-model='currency']")
   public WebElement selectCurrency;
 
-  // @FindBy(xpath = OpenAccountPageLocators.buttonProcess)
   @FindBy(xpath = "//button[@type='submit' and text()='Process']")
   public WebElement buttonProcess;
 

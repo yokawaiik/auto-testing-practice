@@ -13,15 +13,12 @@ import io.qameta.allure.Step;
 
 public class CustomersListPage extends Page {
 
-  // @FindBy(xpath = CustomersListPageLocators.searchCustomer)
   @FindBy(xpath = "//input[@ng-model='searchCustomer']")
   public WebElement searchCustomer;
 
-  // @FindBy(xpath = CustomersListPageLocators.deleteButton)
   @FindBy(xpath = "//button[contains(@ng-click,'deleteCust') and contains(string(),'Delete')]")
   public List<WebElement> deleteButtonList;
 
-  // @FindBy(xpath = CustomersListPageLocators.tableRow)
   @FindBy(xpath = "//table[contains(@class,'table')]//tr[contains(@class,'ng-scope')]")
   public List<WebElement> tableRowList;
 

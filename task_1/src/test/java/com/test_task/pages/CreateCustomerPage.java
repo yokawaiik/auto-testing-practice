@@ -17,15 +17,12 @@ public class CreateCustomerPage extends Page {
   @FindBy(xpath = "//input[@ng-model='fName']")
   public WebElement firstNameField;
 
-  // @FindBy(xpath = CreateCustomerPageLocators.lastNameField)
   @FindBy(xpath = "//input[@ng-model='lName']")
   public WebElement lastNameField;
 
-  // @FindBy(xpath = CreateCustomerPageLocators.postCodeField)
   @FindBy(xpath = "//input[@ng-model='postCd']")
   public WebElement postCodeField;
 
-  // @FindBy(xpath = CreateCustomerPageLocators.addCustomerButton)
   @FindBy(xpath = "//button[text()='Add Customer']")
   public WebElement addCustomerButton;
 
