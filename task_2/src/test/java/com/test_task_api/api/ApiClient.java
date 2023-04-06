@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.test_task_api.models.LimitedPokemonList;
 import com.test_task_api.models.Pokemon;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 
 public class ApiClient {
@@ -19,9 +21,10 @@ public class ApiClient {
     public Pokemon getPokemon(String name) {
         try {
 
-            final var response = RestAssured.get(String.format("pokemon/%s", name));
-
-            final var responseJson = response.getBody().asString();
+            final var responseJson = RestAssured.given()
+                    .filter(new AllureRestAssured())
+                    .pathParam("name", name)
+                    .get("pokemon/{name}").getBody().asString();
 
             final var pokemon = gson.fromJson(responseJson, Pokemon.class);
             return pokemon;
@@ -37,13 +40,15 @@ public class ApiClient {
     public LimitedPokemonList getLimitedPokemonList(int limit) {
         try {
 
-            final var response = RestAssured.given().queryParam("limit", limit).get("pokemon/");
-
-            final var responseJson = response.getBody().asString();
+            final var responseJson = RestAssured.given()
+                    .filter(new AllureRestAssured())
+                    .request().queryParam("limit", limit)
+                    .get("pokemon").getBody().asString();
 
             final var limitedPokemonList = gson.fromJson(responseJson, LimitedPokemonList.class);
 
             return limitedPokemonList;
+
         } catch (Exception e) {
             System.out.println("Exception: " + e.toString());
             // Maybe it doesn't need to handle...
