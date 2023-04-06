@@ -11,7 +11,6 @@ https://docs.google.com/document/d/1VCJONfXgDyiTFbkOKyV65-dZzwqEDY0yNZh7v-Vo9I0/
 - GSON
 - Allure
 
-
 ### Run all tests
     mvn test
 
