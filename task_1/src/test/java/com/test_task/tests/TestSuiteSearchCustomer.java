@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.apache.hc.core5.util.Asserts;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -88,15 +87,11 @@ public class TestSuiteSearchCustomer extends BaseTest {
     final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
     Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
 
-    List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
-    for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
-      final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-      if (searchResultCustomer.firstName.get().equalsIgnoreCase(customer.firstName.get())) {
-        foundCustomers.add(searchResultCustomer);
-      }
-    }
-
-    Asserts.check(foundCustomers.isEmpty() == false, "Customer must be found in the table.");
+    Asserts.check(
+        allCustomersInTheTable.get().stream()
+            .anyMatch(customerInTheTable -> customerInTheTable.firstName.get()
+                .equalsIgnoreCase(customer.firstName.get())) == true,
+        "Customer must be found in the table.");
   }
 
   @Test
@@ -115,15 +110,12 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
 
-    List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
-    for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
-      final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-      if (searchResultCustomer.lastName.get() == customer.lastName.get()) {
-        foundCustomers.add(searchResultCustomer);
-      }
-    }
+    Asserts.check(
+        allCustomersInTheTable.get().stream()
+            .anyMatch(customerInTheTable -> customerInTheTable.lastName.get()
+                .equalsIgnoreCase(customer.lastName.get())) == true,
+        "Customer must be found in the table.");
 
-    Asserts.check(foundCustomers.isEmpty() != false, "Customer must be found in the table.");
   }
 
   @Test
@@ -140,15 +132,11 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
-    List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
-    for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
-      final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-      if (searchResultCustomer.postCode.get().equals(customer.postCode.get())) {
-        foundCustomers.add(searchResultCustomer);
-      }
-    }
-
-    Asserts.check(!foundCustomers.isEmpty(), "Customer must be found in the table.");
+    Asserts.check(
+        allCustomersInTheTable.get().stream()
+            .anyMatch(customerInTheTable -> customerInTheTable.postCode.get()
+                .equalsIgnoreCase(customer.postCode.get())) == true,
+        "Customer must be found in the table.");
   }
 
   @Test
@@ -166,15 +154,11 @@ public class TestSuiteSearchCustomer extends BaseTest {
     final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
     Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
 
-    List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
-    for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
-      final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
-      if (searchResultCustomer.accountNumberList.get().contains(customer.accountNumberList.get().get(0))) {
-        foundCustomers.add(searchResultCustomer);
-      }
-    }
-
-    Asserts.check(!foundCustomers.isEmpty(), "Customer must be found in the table.");
+    Asserts.check(
+        allCustomersInTheTable.get().stream()
+            .anyMatch(customerInTheTable -> customerInTheTable.accountNumberList.get()
+                .contains(customer.accountNumberList.get().get(0))) == true,
+        "Customer must be found in the table.");
   }
 
   @Test
@@ -238,6 +222,7 @@ public class TestSuiteSearchCustomer extends BaseTest {
       Asserts.check(tableCustomerBefore.hashCode() == tableCustomerAfter.hashCode(),
           "The data in the table should not have changed.");
     }
+
   }
 
   @Test

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.hc.core5.util.Asserts;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,7 +25,6 @@ import com.test_task.pages.CustomersListPage;
 import com.test_task.pages.LoginPage;
 import com.test_task.pages.OpenAccountPage;
 import com.test_task.utils.Utils;
-
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
@@ -54,13 +52,11 @@ public class TestSuiteSortCustomers extends BaseTest {
     getDriver().get(UrlConstants.BASE);
 
     loginPage.login();
-
   }
 
   @BeforeEach
   @Step("Delete standarts customers, add new customers with accounts.")
   public void initBaseTestState() {
-    // ? info: remove all customers
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
     customersListPage.deleteAllCustomers();
 
@@ -80,9 +76,7 @@ public class TestSuiteSortCustomers extends BaseTest {
       Optional<String> oppenedAccountNumber = openAccountPage.openCustomerAccount(currentCustomer);
       Asserts.check(oppenedAccountNumber.isPresent(), "Account must be created.");
       currentCustomer.addAccountNumber(oppenedAccountNumber.get());
-
     }
-
   }
 
 
@@ -112,9 +106,7 @@ public class TestSuiteSortCustomers extends BaseTest {
 
       Asserts.check(firstString.equalsIgnoreCase(secondString),
           "All customers in the table must be sorted alphabetically.");
-
     }
-
   }
 
   @Test
@@ -142,9 +134,7 @@ public class TestSuiteSortCustomers extends BaseTest {
 
       Asserts.check(firstString.equalsIgnoreCase(secondString),
           "All customers in the table must be sorted reverse alphabetically.");
-
     }
-
   }
 
   @Test
@@ -162,5 +152,4 @@ public class TestSuiteSortCustomers extends BaseTest {
 
     Asserts.check(localSortedAllCustomersInTheTable == null, "Table must be empty.");
   }
-
 }
