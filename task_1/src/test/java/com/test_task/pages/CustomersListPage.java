@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import com.test_task.models.TableCustomer;
 import io.qameta.allure.Step;
 
@@ -24,6 +25,7 @@ public class CustomersListPage extends Page {
 
   public CustomersListPage(WebDriver webDriver) {
     super(webDriver);
+    PageFactory.initElements(driver, this);
   }
 
   @Step("Type search query in the search field.")

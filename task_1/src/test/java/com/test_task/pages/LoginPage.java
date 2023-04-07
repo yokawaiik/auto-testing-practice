@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import io.qameta.allure.Step;
+
 public class LoginPage extends Page {
 
   @FindBy(xpath = "//button[text()='Bank Manager Login']")
@@ -12,6 +14,7 @@ public class LoginPage extends Page {
 
   public LoginPage(WebDriver webDriver) {
     super(webDriver);
+    PageFactory.initElements(driver, this);
   }
 
   @Step("Log in the site like a manager.")

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.support.PageFactory;
 import com.test_task.configuration.BaseTest;
 import com.test_task.constants.UrlConstants;
 import com.test_task.models.Customer;
@@ -35,10 +34,10 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
   @BeforeEach
   public void initPageObjects() {
-    loginPage = PageFactory.initElements(getDriver(), LoginPage.class);
-    customersListPage = PageFactory.initElements(getDriver(), CustomersListPage.class);
-    createCustomerPage = PageFactory.initElements(getDriver(), CreateCustomerPage.class);
-    openAccountPage = PageFactory.initElements(getDriver(), OpenAccountPage.class);
+    loginPage = new LoginPage(getDriver());
+    customersListPage = new CustomersListPage(getDriver());
+    createCustomerPage = new CreateCustomerPage(getDriver());
+    openAccountPage = new OpenAccountPage(getDriver());
 
     customers = new ArrayList<>();
 

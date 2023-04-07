@@ -7,6 +7,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import com.test_task.models.Customer;
 import com.test_task.models.Person;
 import io.qameta.allure.Step;
@@ -28,6 +29,7 @@ public class CreateCustomerPage extends Page {
 
   public CreateCustomerPage(WebDriver webDriver) {
     super(webDriver);
+    PageFactory.initElements(driver, this);
   }
 
   @Step("Add new customer.")
