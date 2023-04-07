@@ -1,11 +1,10 @@
 package com.test_task.configuration;
 
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Loads test suite configuration from resource files.
@@ -26,23 +25,33 @@ public class SuiteConfiguration {
   public SuiteConfiguration(String fromResource) throws IOException {
     properties = new Properties();
     properties.load(SuiteConfiguration.class.getResourceAsStream(fromResource));
-    appWebdriverModeHeadless = Boolean.parseBoolean(System.getProperty("app.webdriver.mode.headless"));
-    appWebdriverChromeVersion = System.getProperty("app.webdriver.chrome.version");
+    appWebdriverModeHeadless =
+      Boolean.parseBoolean(System.getProperty("app.webdriver.mode.headless"));
+    appWebdriverChromeVersion =
+      System.getProperty("app.webdriver.chrome.version");
   }
 
   public Capabilities getCapabilities() throws IOException {
     String capabilitiesFile = properties.getProperty("capabilities");
 
     Properties capsProps = new Properties();
-    capsProps.load(SuiteConfiguration.class.getResourceAsStream(capabilitiesFile));
+    capsProps.load(
+      SuiteConfiguration.class.getResourceAsStream(capabilitiesFile)
+    );
 
     DesiredCapabilities capabilities = new DesiredCapabilities();
     for (String name : capsProps.stringPropertyNames()) {
       String value = capsProps.getProperty(name);
-      if (value.toLowerCase().equals("true") || value.toLowerCase().equals("false")) {
+      if (
+        value.toLowerCase().equals("true") ||
+        value.toLowerCase().equals("false")
+      ) {
         capabilities.setCapability(name, Boolean.valueOf(value));
       } else if (value.startsWith("file:")) {
-        capabilities.setCapability(name, new File(".", value.substring(5)).getCanonicalFile().getAbsolutePath());
+        capabilities.setCapability(
+          name,
+          new File(".", value.substring(5)).getCanonicalFile().getAbsolutePath()
+        );
       } else {
         capabilities.setCapability(name, value);
       }

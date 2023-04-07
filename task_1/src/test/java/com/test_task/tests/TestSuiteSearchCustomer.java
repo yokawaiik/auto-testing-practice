@@ -1,13 +1,5 @@
 package com.test_task.tests;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import org.apache.hc.core5.util.Asserts;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import com.test_task.configuration.BaseTest;
 import com.test_task.constants.UrlConstants;
 import com.test_task.models.Customer;
@@ -21,6 +13,14 @@ import com.test_task.utils.Utils;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import org.apache.hc.core5.util.Asserts;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Epic("Test Suite: search a customer")
 public class TestSuiteSearchCustomer extends BaseTest {
@@ -56,7 +56,9 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     for (int index = 0; index < 5; index++) {
       final Person newPerson = Utils.createRandomPerson();
-      final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
+      final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
+        newPerson
+      );
       Asserts.check(newCustomer.isPresent(), "New customer can't be null.");
       customers.add(newCustomer.get());
     }
@@ -65,8 +67,13 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     for (int index = 0; index < customers.size(); index++) {
       final Customer currentCustomer = customers.get(index);
-      Optional<String> oppenedAccountNumber = openAccountPage.openCustomerAccount(currentCustomer);
-      Asserts.check(oppenedAccountNumber.isPresent(), "Account must be created.");
+      Optional<String> oppenedAccountNumber = openAccountPage.openCustomerAccount(
+        currentCustomer
+      );
+      Asserts.check(
+        oppenedAccountNumber.isPresent(),
+        "Account must be created."
+      );
       currentCustomer.addAccountNumber(oppenedAccountNumber.get());
     }
   }
@@ -83,15 +90,24 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.firstName.get());
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
-    Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    Asserts.check(
+      allCustomersInTheTable.isPresent(),
+      "Search query mustn't be empty."
+    );
 
     Asserts.check(
-        allCustomersInTheTable.get().stream()
-            .anyMatch(customerInTheTable -> customerInTheTable.firstName.get()
-                .equalsIgnoreCase(customer.firstName.get())) == true,
-        "Customer must be found in the table.");
+      allCustomersInTheTable
+        .get()
+        .stream()
+        .anyMatch(customerInTheTable ->
+          customerInTheTable.firstName
+            .get()
+            .equalsIgnoreCase(customer.firstName.get())
+        ) ==
+      true,
+      "Customer must be found in the table."
+    );
   }
 
   @Test
@@ -106,17 +122,25 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.lastName.get());
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
-
-    Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(
-        allCustomersInTheTable.get().stream()
-            .anyMatch(customerInTheTable -> customerInTheTable.lastName.get()
-                .equalsIgnoreCase(customer.lastName.get())) == true,
-        "Customer must be found in the table.");
+      allCustomersInTheTable.isPresent(),
+      "Search query mustn't be empty."
+    );
 
+    Asserts.check(
+      allCustomersInTheTable
+        .get()
+        .stream()
+        .anyMatch(customerInTheTable ->
+          customerInTheTable.lastName
+            .get()
+            .equalsIgnoreCase(customer.lastName.get())
+        ) ==
+      true,
+      "Customer must be found in the table."
+    );
   }
 
   @Test
@@ -131,20 +155,30 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.postCode.get());
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(
-        allCustomersInTheTable.get().stream()
-            .anyMatch(customerInTheTable -> customerInTheTable.postCode.get()
-                .equalsIgnoreCase(customer.postCode.get())) == true,
-        "Customer must be found in the table.");
+      allCustomersInTheTable
+        .get()
+        .stream()
+        .anyMatch(customerInTheTable ->
+          customerInTheTable.postCode
+            .get()
+            .equalsIgnoreCase(customer.postCode.get())
+        ) ==
+      true,
+      "Customer must be found in the table."
+    );
   }
 
   @Test
   @Tag("#TC014")
-  @DisplayName("Test Case #TC015: Searching for a client by field: Account Number.")
-  @Description("Test Case #TC015: Searching for a client by field: Account Number.")
+  @DisplayName(
+    "Test Case #TC015: Searching for a client by field: Account Number."
+  )
+  @Description(
+    "Test Case #TC015: Searching for a client by field: Account Number."
+  )
   @Story("Manager search for a customer by field: Account Number.")
   public void searchForCustomersByFieldAccountNumber() {
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
@@ -153,15 +187,24 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.accountNumberList.get().get(0));
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
-    Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    Asserts.check(
+      allCustomersInTheTable.isPresent(),
+      "Search query mustn't be empty."
+    );
 
     Asserts.check(
-        allCustomersInTheTable.get().stream()
-            .anyMatch(customerInTheTable -> customerInTheTable.accountNumberList.get()
-                .contains(customer.accountNumberList.get().get(0))) == true,
-        "Customer must be found in the table.");
+      allCustomersInTheTable
+        .get()
+        .stream()
+        .anyMatch(customerInTheTable ->
+          customerInTheTable.accountNumberList
+            .get()
+            .contains(customer.accountNumberList.get().get(0))
+        ) ==
+      true,
+      "Customer must be found in the table."
+    );
   }
 
   @Test
@@ -176,32 +219,43 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(randomQuery);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
-    Asserts.check(allCustomersInTheTable == null, "Search result must be empty.");
+    Asserts.check(
+      allCustomersInTheTable == null,
+      "Search result must be empty."
+    );
   }
 
   @Test
   @Tag("#TC016")
   @DisplayName("Test Case #TC017: Performing searches with merged data.")
   @Description("Test Case #TC017: Performing searches with merged data.")
-  @Story("Manager tries search for a customer by performing searches with merged data.")
+  @Story(
+    "Manager tries search for a customer by performing searches with merged data."
+  )
   public void searchForCustomerByMergedSearchTerms() {
-
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
     final Customer customer = customers.get(0);
 
-    final String mergedQuery = customer.firstName.get() + " " + customer.lastName.get() + " "
-        + customer.postCode.get() + " " + String.join(" ", customer.accountNumberList.get());
+    final String mergedQuery =
+      customer.firstName.get() +
+      " " +
+      customer.lastName.get() +
+      " " +
+      customer.postCode.get() +
+      " " +
+      String.join(" ", customer.accountNumberList.get());
 
     customersListPage.setSearchField(mergedQuery);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
-    Asserts.check(allCustomersInTheTable == null, "Search result mustn't be empty.");
+    Asserts.check(
+      allCustomersInTheTable == null,
+      "Search result mustn't be empty."
+    );
   }
 
   @Test
@@ -212,37 +266,55 @@ public class TestSuiteSearchCustomer extends BaseTest {
   public void searchForCustomerByAnEmptySearchTerm() {
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTableBeforeQuery =
-        customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTableBeforeQuery = customersListPage.getAllCustomersInTheTable();
 
     customersListPage.setSearchField("");
 
-    final Optional<List<TableCustomer>> allCustomersInTheTableAfterQuery =
-        customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTableAfterQuery = customersListPage.getAllCustomersInTheTable();
 
-    for (int index = 0; index < allCustomersInTheTableBeforeQuery.get().size(); index++) {
-      final TableCustomer tableCustomerBefore = allCustomersInTheTableBeforeQuery.get().get(index);
-      final TableCustomer tableCustomerAfter = allCustomersInTheTableAfterQuery.get().get(index);
+    for (
+      int index = 0;
+      index < allCustomersInTheTableBeforeQuery.get().size();
+      index++
+    ) {
+      final TableCustomer tableCustomerBefore = allCustomersInTheTableBeforeQuery
+        .get()
+        .get(index);
+      final TableCustomer tableCustomerAfter = allCustomersInTheTableAfterQuery
+        .get()
+        .get(index);
 
-      Asserts.check(tableCustomerBefore.hashCode() == tableCustomerAfter.hashCode(),
-          "The data in the table should not have changed.");
+      Asserts.check(
+        tableCustomerBefore.hashCode() == tableCustomerAfter.hashCode(),
+        "The data in the table should not have changed."
+      );
     }
-
   }
 
   @Test
   @Tag("#TC018")
-  @DisplayName("Test Case #TC019: Search for clients with the same data in one of the fields.")
-  @Description("Test Case #TC019: Search for clients with the same data in one of the fields.")
-  @Story("Manager tries to search for customers with the same data in one of the fields.")
+  @DisplayName(
+    "Test Case #TC019: Search for clients with the same data in one of the fields."
+  )
+  @Description(
+    "Test Case #TC019: Search for clients with the same data in one of the fields."
+  )
+  @Story(
+    "Manager tries to search for customers with the same data in one of the fields."
+  )
   public void searchForCustomersWithTheSameData() {
     getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
     final Customer customer = customers.get(0);
-    final Person newPerson =
-        new Person(customer.firstName.get(), customer.lastName.get(), Utils.getPostCode());
+    final Person newPerson = new Person(
+      customer.firstName.get(),
+      customer.lastName.get(),
+      Utils.getPostCode()
+    );
 
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
+    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
+      newPerson
+    );
     Asserts.check(newCustomer != null, "New customer can't be null.");
 
     customers.add(newCustomer.get());
@@ -250,20 +322,29 @@ public class TestSuiteSearchCustomer extends BaseTest {
     final String query = customer.firstName.get();
     customersListPage.setSearchField(query);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable =
-        customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
 
     List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
     for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {
-      final TableCustomer searchResultCustomer = allCustomersInTheTable.get().get(index);
+      final TableCustomer searchResultCustomer = allCustomersInTheTable
+        .get()
+        .get(index);
 
-      if (searchResultCustomer.firstName.get().equalsIgnoreCase(customer.firstName.get())) {
+      if (
+        searchResultCustomer.firstName
+          .get()
+          .equalsIgnoreCase(customer.firstName.get())
+      ) {
         foundCustomers.add(searchResultCustomer);
       }
-
     }
-    Asserts.check(foundCustomers.isEmpty() == false, "Search result mustn't be empty.");
-    Asserts.check(foundCustomers.size() >= 2, "Customer must be found in the table.");
+    Asserts.check(
+      foundCustomers.isEmpty() == false,
+      "Search result mustn't be empty."
+    );
+    Asserts.check(
+      foundCustomers.size() >= 2,
+      "Customer must be found in the table."
+    );
   }
-
 }

@@ -1,5 +1,7 @@
 package com.test_task.pages;
 
+import com.test_task.models.TableCustomer;
+import io.qameta.allure.Step;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,18 +11,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import com.test_task.models.TableCustomer;
-import io.qameta.allure.Step;
 
 public class CustomersListPage extends Page {
 
   @FindBy(xpath = "//input[@ng-model='searchCustomer']")
   public WebElement searchCustomer;
 
-  @FindBy(xpath = "//button[contains(@ng-click,'deleteCust') and contains(string(),'Delete')]")
+  @FindBy(
+    xpath = "//button[contains(@ng-click,'deleteCust') and contains(string(),'Delete')]"
+  )
   public List<WebElement> deleteButtonList;
 
-  @FindBy(xpath = "//table[contains(@class,'table')]//tr[contains(@class,'ng-scope')]")
+  @FindBy(
+    xpath = "//table[contains(@class,'table')]//tr[contains(@class,'ng-scope')]"
+  )
   public List<WebElement> tableRowList;
 
   public CustomersListPage(WebDriver webDriver) {
@@ -45,7 +49,10 @@ public class CustomersListPage extends Page {
   @Step("Sort customers by name.")
   public void sortCustomersByName() {
     final WebElement firstNameSortTypeButton = driver.findElement(
-        By.xpath("//a[contains(@ng-click,'sortType') and contains(string(),'First Name')]"));
+      By.xpath(
+        "//a[contains(@ng-click,'sortType') and contains(string(),'First Name')]"
+      )
+    );
     firstNameSortTypeButton.click();
   }
 
@@ -57,17 +64,20 @@ public class CustomersListPage extends Page {
       final List<TableCustomer> tableCustomerList = new ArrayList<>();
 
       while (tableRowListIterator.hasNext()) {
-
         final WebElement row = tableRowListIterator.next();
 
-        final List<WebElement> tableDataElements = row.findElements(By.xpath(".//td"));
+        final List<WebElement> tableDataElements = row.findElements(
+          By.xpath(".//td")
+        );
 
         final String firstName = tableDataElements.get(0).getText();
         final String lastName = tableDataElements.get(1).getText();
         final String postCode = tableDataElements.get(2).getText();
 
-        final String[] accountNumberListParsed =
-            tableDataElements.get(3).getText().split("//([0-9]+)");
+        final String[] accountNumberListParsed = tableDataElements
+          .get(3)
+          .getText()
+          .split("//([0-9]+)");
 
         final ArrayList<String> accountNumberList = new ArrayList<>();
 
@@ -75,8 +85,12 @@ public class CustomersListPage extends Page {
           accountNumberList.add(accountNumberListParsed[index]);
         }
 
-        final TableCustomer tableCustomer = new TableCustomer(Optional.of(firstName),
-            Optional.of(lastName), Optional.of(postCode), Optional.of(accountNumberList));
+        final TableCustomer tableCustomer = new TableCustomer(
+          Optional.of(firstName),
+          Optional.of(lastName),
+          Optional.of(postCode),
+          Optional.of(accountNumberList)
+        );
 
         tableCustomerList.add(tableCustomer);
       }
@@ -90,7 +104,5 @@ public class CustomersListPage extends Page {
       System.out.println("Exception: " + e);
       return null;
     }
-
   }
-
 }

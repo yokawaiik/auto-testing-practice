@@ -1,5 +1,8 @@
 package com.test_task.pages;
 
+import com.test_task.models.Customer;
+import com.test_task.models.Person;
+import io.qameta.allure.Step;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,13 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import com.test_task.models.Customer;
-import com.test_task.models.Person;
-import io.qameta.allure.Step;
 
 public class CreateCustomerPage extends Page {
 
-  // @FindBy(xpath = CreateCustomerPageLocators.firstNameField)
   @FindBy(xpath = "//input[@ng-model='fName']")
   public WebElement firstNameField;
 
@@ -51,16 +50,16 @@ public class CreateCustomerPage extends Page {
 
       final Alert alert = driver.switchTo().alert();
 
-      final Optional<Integer> customerId = getCreatedCustomerId(alert.getText());
+      final Optional<Integer> customerId = getCreatedCustomerId(
+        alert.getText()
+      );
       alert.accept();
 
       if (customerId == null) {
         return null;
       }
       return Optional.of(new Customer(person, customerId.get()));
-    }
-
-    catch (Exception e) {
+    } catch (Exception e) {
       return null;
     }
   }
@@ -76,5 +75,4 @@ public class CreateCustomerPage extends Page {
     }
     return null;
   }
-
 }

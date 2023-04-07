@@ -1,5 +1,7 @@
 package com.test_task.pages;
 
+import com.test_task.models.Customer;
+import io.qameta.allure.Step;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import com.test_task.models.Customer;
-import io.qameta.allure.Step;
 
 public class OpenAccountPage extends Page {
 
@@ -31,7 +31,6 @@ public class OpenAccountPage extends Page {
   @Step("Add customer and get it account number.")
   public Optional<String> openCustomerAccount(Customer customer) {
     try {
-
       final Select selectCustomerIdElement = new Select(selectCustomerId);
       final Select selectCurrencyElement = new Select(selectCurrency);
 
@@ -44,21 +43,19 @@ public class OpenAccountPage extends Page {
 
       final Alert alert = driver.switchTo().alert();
 
-      final Optional<Integer> createdCustomerAccountNumber =
-          getCreatedCustomerAccountNumber(alert.getText());
-      if (createdCustomerAccountNumber == null)
-        return null;
+      final Optional<Integer> createdCustomerAccountNumber = getCreatedCustomerAccountNumber(
+        alert.getText()
+      );
+      if (createdCustomerAccountNumber == null) return null;
       alert.accept();
 
       return Optional.of(String.valueOf(createdCustomerAccountNumber.get()));
     } catch (Exception e) {
       return null;
     }
-
   }
 
   private Optional<Integer> getCreatedCustomerAccountNumber(String text) {
-
     final String regex = "\\d+";
     final Pattern pattern = Pattern.compile(regex);
     final Matcher matcher = pattern.matcher(text);
@@ -70,5 +67,4 @@ public class OpenAccountPage extends Page {
 
     return null;
   }
-
 }
