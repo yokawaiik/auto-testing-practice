@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ability {
 
-    @SerializedName("name")
-    public String name;
+  @SerializedName("name")
+  public String name;
 
-    public Ability(String name) {
-        this.name = name;
-    }
+  public Ability(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+  @Override
+  public String toString() {
+    return name;
+  }
 }
