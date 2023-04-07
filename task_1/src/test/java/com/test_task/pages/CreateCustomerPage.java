@@ -72,7 +72,6 @@ public class CreateCustomerPage extends Page {
       int customerId = Integer.parseInt(matcher.group());
       return Optional.of(customerId);
     }
-
     return null;
   }
 

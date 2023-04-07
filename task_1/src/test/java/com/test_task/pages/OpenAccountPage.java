@@ -42,7 +42,8 @@ public class OpenAccountPage extends Page {
 
       final Alert alert = driver.switchTo().alert();
 
-      final Optional<Integer> createdCustomerAccountNumber = getCreatedCustomerAccountNumber(alert.getText());
+      final Optional<Integer> createdCustomerAccountNumber =
+          getCreatedCustomerAccountNumber(alert.getText());
       if (createdCustomerAccountNumber == null)
         return null;
       alert.accept();

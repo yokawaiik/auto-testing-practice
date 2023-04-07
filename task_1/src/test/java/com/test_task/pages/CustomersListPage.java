@@ -42,8 +42,8 @@ public class CustomersListPage extends Page {
 
   @Step("Sort customers by name.")
   public void sortCustomersByName() {
-    final WebElement firstNameSortTypeButton = driver
-        .findElement(By.xpath("//a[contains(@ng-click,'sortType') and contains(string(),'First Name')]"));
+    final WebElement firstNameSortTypeButton = driver.findElement(
+        By.xpath("//a[contains(@ng-click,'sortType') and contains(string(),'First Name')]"));
     firstNameSortTypeButton.click();
   }
 
@@ -58,15 +58,14 @@ public class CustomersListPage extends Page {
 
         final WebElement row = tableRowListIterator.next();
 
-        final List<WebElement> tableDataElements = row
-            // .findElements(By.xpath(CustomersListPageLocators.relativeTableData));
-            .findElements(By.xpath(".//td"));
+        final List<WebElement> tableDataElements = row.findElements(By.xpath(".//td"));
 
         final String firstName = tableDataElements.get(0).getText();
         final String lastName = tableDataElements.get(1).getText();
         final String postCode = tableDataElements.get(2).getText();
 
-        final String[] accountNumberListParsed = tableDataElements.get(3).getText().split("//([0-9]+)");
+        final String[] accountNumberListParsed =
+            tableDataElements.get(3).getText().split("//([0-9]+)");
 
         final ArrayList<String> accountNumberList = new ArrayList<>();
 
@@ -74,11 +73,8 @@ public class CustomersListPage extends Page {
           accountNumberList.add(accountNumberListParsed[index]);
         }
 
-        final TableCustomer tableCustomer = new TableCustomer(
-            Optional.of(firstName),
-            Optional.of(lastName),
-            Optional.of(postCode),
-            Optional.of(accountNumberList));
+        final TableCustomer tableCustomer = new TableCustomer(Optional.of(firstName),
+            Optional.of(lastName), Optional.of(postCode), Optional.of(accountNumberList));
 
         tableCustomerList.add(tableCustomer);
       }

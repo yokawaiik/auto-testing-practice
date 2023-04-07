@@ -88,8 +88,8 @@ public class TestSuiteSortCustomers extends BaseTest {
   public void sortByNameAlphabetically() {
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
-    final List<TableCustomer> localSortedAllCustomersInTheTable = customersListPage
-        .getAllCustomersInTheTable().get();
+    final List<TableCustomer> localSortedAllCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable().get();
 
     Collections.sort(localSortedAllCustomersInTheTable,
         new TableCustomersNameComparator(TableSortOrder.alphabetically));
@@ -97,7 +97,8 @@ public class TestSuiteSortCustomers extends BaseTest {
     customersListPage.sortCustomersByName();
     customersListPage.sortCustomersByName();
 
-    final List<TableCustomer> sortedAllCustomersInTheTable = customersListPage.getAllCustomersInTheTable().get();
+    final List<TableCustomer> sortedAllCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable().get();
 
     for (int index = 0; index < sortedAllCustomersInTheTable.size(); index++) {
 
@@ -117,15 +118,16 @@ public class TestSuiteSortCustomers extends BaseTest {
   public void sortByNameReverseAlphabetically() {
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
-    final List<TableCustomer> localSortedAllCustomersInTheTable = customersListPage
-        .getAllCustomersInTheTable().get();
+    final List<TableCustomer> localSortedAllCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable().get();
 
     Collections.sort(localSortedAllCustomersInTheTable,
         new TableCustomersNameComparator(TableSortOrder.reverseAlphabetically));
 
     customersListPage.sortCustomersByName();
 
-    final List<TableCustomer> sortedAllCustomersInTheTable = customersListPage.getAllCustomersInTheTable().get();
+    final List<TableCustomer> sortedAllCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable().get();
 
     for (int index = 0; index < sortedAllCustomersInTheTable.size(); index++) {
 
@@ -147,8 +149,8 @@ public class TestSuiteSortCustomers extends BaseTest {
 
     customersListPage.deleteAllCustomers();
     customersListPage.sortCustomersByName();
-    final Optional<List<TableCustomer>> localSortedAllCustomersInTheTable = customersListPage
-        .getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> localSortedAllCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(localSortedAllCustomersInTheTable == null, "Table must be empty.");
   }

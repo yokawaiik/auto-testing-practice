@@ -84,7 +84,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.firstName.get());
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
     Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
 
     Asserts.check(
@@ -106,7 +107,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.lastName.get());
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
 
@@ -130,7 +132,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.postCode.get());
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(
         allCustomersInTheTable.get().stream()
@@ -151,7 +154,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(customer.accountNumberList.get().get(0));
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
     Asserts.check(allCustomersInTheTable.isPresent(), "Search query mustn't be empty.");
 
     Asserts.check(
@@ -173,7 +177,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     customersListPage.setSearchField(randomQuery);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(allCustomersInTheTable == null, "Search result must be empty.");
   }
@@ -189,12 +194,13 @@ public class TestSuiteSearchCustomer extends BaseTest {
 
     final Customer customer = customers.get(0);
 
-    final String mergedQuery = customer.firstName.get() + " " + customer.lastName.get() + " " + customer.postCode.get()
-        + " " + String.join(" ", customer.accountNumberList.get());
+    final String mergedQuery = customer.firstName.get() + " " + customer.lastName.get() + " "
+        + customer.postCode.get() + " " + String.join(" ", customer.accountNumberList.get());
 
     customersListPage.setSearchField(mergedQuery);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
 
     Asserts.check(allCustomersInTheTable == null, "Search result mustn't be empty.");
   }
@@ -207,13 +213,13 @@ public class TestSuiteSearchCustomer extends BaseTest {
   public void searchForCustomerByAnEmptySearchTerm() {
     getDriver().get(UrlConstants.CUSTOMERS_LIST);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTableBeforeQuery = customersListPage
-        .getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTableBeforeQuery =
+        customersListPage.getAllCustomersInTheTable();
 
     customersListPage.setSearchField("");
 
-    final Optional<List<TableCustomer>> allCustomersInTheTableAfterQuery = customersListPage
-        .getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTableAfterQuery =
+        customersListPage.getAllCustomersInTheTable();
 
     for (int index = 0; index < allCustomersInTheTableBeforeQuery.get().size(); index++) {
       final TableCustomer tableCustomerBefore = allCustomersInTheTableBeforeQuery.get().get(index);
@@ -234,7 +240,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
     getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
     final Customer customer = customers.get(0);
-    final Person newPerson = new Person(customer.firstName.get(), customer.lastName.get(), Utils.getPostCode());
+    final Person newPerson =
+        new Person(customer.firstName.get(), customer.lastName.get(), Utils.getPostCode());
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
     Asserts.check(newCustomer != null, "New customer can't be null.");
@@ -244,7 +251,8 @@ public class TestSuiteSearchCustomer extends BaseTest {
     final String query = customer.firstName.get();
     customersListPage.setSearchField(query);
 
-    final Optional<List<TableCustomer>> allCustomersInTheTable = customersListPage.getAllCustomersInTheTable();
+    final Optional<List<TableCustomer>> allCustomersInTheTable =
+        customersListPage.getAllCustomersInTheTable();
 
     List<TableCustomer> foundCustomers = new ArrayList<TableCustomer>();
     for (int index = 0; index < allCustomersInTheTable.get().size(); index++) {

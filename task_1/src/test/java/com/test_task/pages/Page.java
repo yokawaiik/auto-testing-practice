@@ -37,14 +37,16 @@ public abstract class Page {
   }
 
   public void waitForAlertDialog() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(TestConstants.WAIT_INTERVAL_IN_SECONDS));
+    WebDriverWait wait =
+        new WebDriverWait(driver, Duration.ofMillis(TestConstants.WAIT_INTERVAL_IN_SECONDS));
     wait.pollingEvery(Duration.ofMillis(TestConstants.POLLING_EVERY));
     wait.until(ExpectedConditions.alertIsPresent());
   }
 
   public Optional<WebElement> waitWhileElementToBeClickable(By by) {
     for (int index = 0; index < TestConstants.WAITING_ATTEMPTS_COUNT; index++) {
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(TestConstants.WAIT_INTERVAL_IN_SECONDS));
+      WebDriverWait wait =
+          new WebDriverWait(driver, Duration.ofMillis(TestConstants.WAIT_INTERVAL_IN_SECONDS));
       wait.pollingEvery(Duration.ofMillis(TestConstants.POLLING_EVERY));
       final var element = wait.until(ExpectedConditions.elementToBeClickable(by));
       if (element != null) {

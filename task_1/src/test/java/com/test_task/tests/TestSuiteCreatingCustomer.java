@@ -84,8 +84,8 @@ public class TestSuiteCreatingCustomer extends BaseTest {
   public void creatingCustomerWithIncorrectData() {
     getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
-    final Person newPerson = new Person(Utils.getRandomString(),
-        Utils.getRandomString(), Utils.getRandomString());
+    final Person newPerson =
+        new Person(Utils.getRandomString(), Utils.getRandomString(), Utils.getRandomString());
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
 
@@ -101,7 +101,7 @@ public class TestSuiteCreatingCustomer extends BaseTest {
     getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
     final Person newPerson = new Person(Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH),
-        Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH ),
+        Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH),
         Utils.getRandomString(FieldsConstants.MIN_POST_CODE_LENGTH));
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
@@ -117,10 +117,10 @@ public class TestSuiteCreatingCustomer extends BaseTest {
   public void creatingCustomerWithMaximumData() {
     getDriver().get(UrlConstants.CREATE_CUSTOMER);
 
-    final Person newPerson = new Person(
-        Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
-        Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
-        Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false));
+    final Person newPerson =
+        new Person(Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
+            Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
+            Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false));
 
     final Optional<Customer> newCustomer = createCustomerPage.addCustomer(newPerson);
 
