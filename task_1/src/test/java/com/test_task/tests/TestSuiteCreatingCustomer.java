@@ -12,11 +12,14 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.apache.hc.core5.util.Asserts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @Epic("Test Suite: creating a customer")
 public class TestSuiteCreatingCustomer extends BaseTest {
@@ -30,19 +33,50 @@ public class TestSuiteCreatingCustomer extends BaseTest {
     createCustomerPage = new CreateCustomerPage(getDriver());
     getDriver().get(UrlConstants.BASE);
     loginPage.login();
+    getDriver().get(UrlConstants.CREATE_CUSTOMER);
   }
 
-  @Test
-  @Tag("#TC001")
-  @DisplayName("Test Case #TC001: Creating a client with correct data.")
-  @Description("Test Case #TC001: Creating a client with correct data.")
-  @Story("Manager creates a new customer.")
-  public void successfulCreatingCustomer() {
-    getDriver().get(UrlConstants.CREATE_CUSTOMER);
-    final Person newPerson = Utils.createRandomPerson();
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
-      newPerson
+  static Stream<Person> argsProviderFactoryForPositiveTests() {
+    return Stream.of(
+      Utils.createRandomPerson(),
+      new Person(
+        Utils.getRandomFirstName() + Utils.getRandomNumber(5),
+        Utils.getRandomLastName() + Utils.getRandomNumber(5),
+        Utils.getPostCode()
+      ),
+      new Person(
+        Utils.getRandomString(),
+        Utils.getRandomString(),
+        Utils.getRandomString()
+      ),
+      new Person(
+        Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH),
+        Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH),
+        Utils.getRandomString(FieldsConstants.MIN_POST_CODE_LENGTH)
+      ),
+      new Person(
+        Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
+        Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
+        Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false)
+      )
     );
+  }
+
+  @Tag("Test Cases #TC: 001, 003, 004, 005, 006")
+  @DisplayName(
+    "Test Cases #TC: 001, 003, 004, 005, 006: Creating client (Positive tests)."
+  )
+  @Description(
+    "Test Cases #TC: 001, 003, 004, 005, 006: Creating client (Positive tests)."
+  )
+  @Story("Manager creates a new customer.")
+  @ParameterizedTest
+  @MethodSource("argsProviderFactoryForPositiveTests")
+  public void positiveCreatingCustomer(Person person) {
+    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
+      person
+    );
+
     Asserts.check(newCustomer != null, "New customer can't be null.");
   }
 
@@ -70,123 +104,16 @@ public class TestSuiteCreatingCustomer extends BaseTest {
       newPerson
     );
 
-    Asserts.check(newCustomer == null, "New customer mustn't be created.");
-  }
-
-  @Test
-  @Tag("#TC003")
-  @DisplayName(
-    "Test Case #TC003: Creating a client with symbols (numbers, signs) in First Name and Last Name."
-  )
-  @Description(
-    "Test Case #TC003: Creating a client with symbols (numbers, signs) in First Name and Last Name."
-  )
-  @Story(
-    "Manager tries to create a new customer with symbols (numbers, signs) in First Name and Last Name."
-  )
-  public void creatingCustomerWithSymbolsAndNumbersInNameFields() {
-    getDriver().get(UrlConstants.CREATE_CUSTOMER);
-    final Person newPerson = new Person(
-      Utils.getRandomFirstName() + Utils.getRandomNumber(5),
-      Utils.getRandomLastName() + Utils.getRandomNumber(5),
-      Utils.getPostCode()
-    );
-
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
-      newPerson
-    );
-
-    Asserts.check(newCustomer != null, "New customer must be created.");
-  }
-
-  @Test
-  @Tag("#TC004")
-  @DisplayName(
-    "Test Case #TC004: Creating a customer with incorrect data: First Name, Last Name and Post Code."
-  )
-  @Description(
-    "Test Case #TC004: Creating a customer with incorrect data: First Name, Last Name and Post Code."
-  )
-  @Story(
-    "Manager tries to create a customer with incorrect data: First Name, Last Name and Post Code."
-  )
-  public void creatingCustomerWithIncorrectData() {
-    getDriver().get(UrlConstants.CREATE_CUSTOMER);
-
-    final Person newPerson = new Person(
-      Utils.getRandomString(),
-      Utils.getRandomString(),
-      Utils.getRandomString()
-    );
-
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
-      newPerson
-    );
-
-    Asserts.check(newCustomer != null, "New customer must be created.");
-  }
-
-  @Test
-  @Tag("#TC005")
-  @DisplayName(
-    "Test Case #TC005: Creating a customer with a minimum number of characters in the fields (1 character): First Name, Last Name and Post Code."
-  )
-  @Description(
-    "Test Case #TC005: Creating a customer with a minimum number of characters in the fields (1 character): First Name, Last Name and Post Code."
-  )
-  @Story(
-    "Manager tries to create a customer with Creating a customer with a minimum number of characters in the fields (1 character): First Name, Last Name and Post Code."
-  )
-  public void creatingCustomerWithUnderData() {
-    getDriver().get(UrlConstants.CREATE_CUSTOMER);
-
-    final Person newPerson = new Person(
-      Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH),
-      Utils.getRandomString(FieldsConstants.MIN_NAME_LENGTH),
-      Utils.getRandomString(FieldsConstants.MIN_POST_CODE_LENGTH)
-    );
-
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
-      newPerson
-    );
-
-    Asserts.check(newCustomer != null, "New customer must be created.");
-  }
-
-  @Test
-  @Tag("#TC006")
-  @DisplayName(
-    "Test Case #TC006: Creating a customer with the maximum number of characters in the fields: First Name, Last Name and Post Code."
-  )
-  @Description(
-    "Test Case #TC006: Creating a customer with the maximum number of characters in the fields: First Name, Last Name and Post Code."
-  )
-  @Story(
-    "Manager tries to create a customer with Creating a customer with the maximum number of characters in the fields: First Name, Last Name and Post Code."
-  )
-  public void creatingCustomerWithMaximumData() {
-    getDriver().get(UrlConstants.CREATE_CUSTOMER);
-
-    final Person newPerson = new Person(
-      Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
-      Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false),
-      Utils.getRandomString(FieldsConstants.MAX_NAME_LENGTH, false, false)
-    );
-
-    final Optional<Customer> newCustomer = createCustomerPage.addCustomer(
-      newPerson
-    );
-
-    Asserts.check(newCustomer != null, "New customer mustn't be created.");
+    Asserts.check(newCustomer == null, "New client should not be found.");
   }
 
   @Test
   @Tag("#TC007")
   @DisplayName(
-    "Test Case #TC008: Attempting to add a user with existing data (Duplicate customer)."
+    "Test Case #TC007: Attempting to add a user with existing data (Duplicate customer)."
   )
   @Description(
-    "Test Case #TC008: Attempting to add a user with existing data (Duplicate customer)."
+    "Test Case #TC007: Attempting to add a user with existing data (Duplicate customer)."
   )
   @Story("Manager tries to create a customer with existing data.")
   public void creatingExistingCustomer() {
